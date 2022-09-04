@@ -1,0 +1,321 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+
+/*Timeline Container*/
+.timeline-container {
+    height: 7px;
+    margin-inline: .5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/*Timeline Settings*/
+.timeline {
+    background-color: rgba(100,100,100,.5);
+    height: 3px;
+    width: 100%;
+    position: relative;
+}
+
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    /*Starts to the left*/
+    left: 0;
+    /*Fills full size of section*/
+    top: 0;
+    bottom: 0;
+    /*Right value is 100% - preview position x 100%*/
+    right: calc(100% - var(--preview-position) * 100%);
+    background-color: rgb(150,150,150);
+    display: none;
+} 
+
+
+.timeline::after {
+    content: "";
+    position: absolute;
+    /*Starts to the left*/
+    left: 0;
+    /*Fills full size of section*/
+    top: 0;
+    bottom: 0;
+    /*Right value is 100% - progress position x 100%*/
+    right: calc(100% - var(--progress-position) * 100%);
+    background-color: red;
+}
+
+.timeline .thumb-indicator {
+    --scale: 0;
+    position: absolute;
+    /*Center circle by half of its width*/
+    transform: translateX(-50%) scale(var(--scale));
+    /*Height twice the size of bar*/
+    height: 200%;
+    /*Keep in middle of bar*/
+    top: -50%;
+    /*Determines position. Progress position x 100%*/
+    left: calc(var(--progress-position) * 100%);
+    background-color: red;
+    border-radius: 50%;
+    transition: transform 150ms ease-in-out;
+    aspect-ratio: 1 / 1;
+}
+
+.timeline .preview-img {
+    position: absolute;
+    height: 80px;
+    aspect-ratio: 16 / 9;
+    /*Preview one pixel above cursor*/
+    top: -1rem;
+    /*-50 to center, -100 for above cursor*/
+    transform: translate(-50%, -100%);
+    /*Determines position. Preview position x 100%*/
+    left: calc(var(--preview-position) * 100%);
+    border-radius: .25rem;
+    border: 2px solid white;
+    display: none;
+}
+
+.thumbnail-img {
+    position: absolute;
+    /*Fills all available space*/
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.video-container.scrubbing .thumbnail-img {
+    display: block;
+}
+
+.video-container.scrubbing .preview-img,
+.timeline-container:hover .preview-img {
+    display: block;
+}
+
+.video-container.scrubbing .timeline::before,
+.timeline-container:hover .timeline::before {
+    display: block;
+}
+
+.video-container.scrubbing .thumb-indicator,
+.timeline-container:hover .thumb-indicator {
+    --scale: 1;
+}
+
+/*When hovering double in size*/
+.video-container.scrubbing .timeline,
+.timeline-container:hover .timeline {
+    height: 100%;
+}
+
+
+/*Video Container*/
+.video-container {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  margin-inline: auto;
+  background-color: black;
+}
+
+
+/*Theater and Fullscreen Mode*/
+.video-container.theater,
+.video-container.fullscreen {
+    max-width: initial;
+    width: 100%;
+}
+
+.video-container.theater {
+    max-height: 90vh;
+}
+
+.video-container.fullscreen {
+    max-height: 100vh;
+}
+
+video {
+  width: 100%;
+}
+
+
+/*Controls*/
+.video-controls-container {
+  position: absolute;
+  /*Fills out video to edges*/
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  /*Keeps overtop of everything*/
+  z-index: 100;
+  /*Keeps controls hidden unless hover*/
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+/*Background for controls*/
+.video-controls-container::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    /*Fade up, black to transparent*/
+    background: linear-gradient(to top, rgba(0,0,0,75), transparent);
+    width: 100%;
+    /*No matter how high cover same percent of area*/
+    aspect-ratio: 6 / 1;
+    /*Put behind button*/
+    z-index: -1;
+    /*Allow to click buttons*/
+    pointer-events: none;
+}
+
+/*Play button fade*/
+.video-container:hover .video-controls-container,
+.video-controls-container:focus-within .video-controls-container,
+.video-container.paused .video-controls-container {
+  opacity: 1;
+}
+
+/*Style buttons and controls*/
+.video-controls-container .controls {
+    display: flex;
+    gap: .5rem;
+    padding: .25rem;
+    align-items: center;
+}
+
+
+/*Buttons*/
+.video-controls-container .controls button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    font-size: 1.1rem;
+    cursor:pointer;
+    /*Different opacity when hovering*/
+    cursor: pointer;
+    opacity: .85;
+    transition: opacity 150ms ease-in-out;
+}
+
+.video-controls-container .controls button:hover {
+    opacity: 1;
+}
+
+
+/*If video is paused, hide pause button*/
+.video-container.paused .pause-icon {
+    display: none;
+}
+
+/*If video is NOT paused, hide play button*/
+.video-container:not(.paused) .play-icon {
+    display: none;
+}
+
+/*Hide volume buttons by default*/
+.volume-high, 
+.volume-low,
+.volume-off {
+  display: none;
+}
+
+/*Display volume button according to volume state*/
+.video-container[data-volume-level="high"] .volume-high {
+    display: block;
+}
+
+.video-container[data-volume-level="low"] .volume-low {
+    display: block;
+}
+
+.video-container[data-volume-level="muted"] .volume-off {
+    display: block;
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+}
+
+/*Volume slider closed unless hovering*/
+.volume-slider {
+    /*Hide by default*/
+    width: 0;
+    /*Fade in from left to right*/
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: width 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.volume-container:hover .volume-slider,
+/*tab controls*/ 
+.volume-slider:focus-within {
+    width: 100px;
+    transform: scaleX(1);
+}
+
+
+/*Duration counter*/
+.duration-container {
+    display: flex;
+    align-items: center;
+    gap: .25 rem;
+    flex-grow: 1;
+}
+
+
+/*If captions on, show off*/ 
+.video-container.captions .off {
+    display: none;
+}
+.video-container:not(.captions) .on {
+    display: none;
+}
+
+/*Wide Playrate button*/
+.video-controls-container .controls button.wide {
+    width: 50px;
+}
+
+/*If video is in theater mode, hide theater button*/
+.video-container.theater .theater {
+    display: none;
+}
+
+/*If video is NOT in theater mode, hide original button*/
+.video-container:not(.theater) .original {
+    display: none;
+}
+
+/*If video is fullscreen, hide fullscreen button*/
+.video-container.fullscreen .open {
+    display: none;
+}
+
+/*If video is NOT fullscreen, hide close fullscreen button*/
+.video-container:not(.fullscreen) .close {
+    display: none;
+}
