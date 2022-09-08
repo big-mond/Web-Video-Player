@@ -15,7 +15,7 @@ const volumeSlider = document.querySelector(".volume-slider")
 const video = document.querySelector("video")
 
 
-//Key bindings to actions
+//Key bindings to actions.
 document.addEventListener("keydown", e => {
   //Equals whatever we are tabbed on to
   const tagName =document.activeElement.tagName.toLowerCase()
