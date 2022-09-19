@@ -52,9 +52,10 @@ body {
     bottom: 0;
     /*Right value is 100% - progress position x 100%*/
     right: calc(100% - var(--progress-position) * 100%);
-    background-color: red;
+    background-color: blue;
 }
 
+/*Timeline thumb indicator*/
 .timeline .thumb-indicator {
     --scale: 0;
     position: absolute;
@@ -66,7 +67,7 @@ body {
     top: -50%;
     /*Determines position. Progress position x 100%*/
     left: calc(var(--progress-position) * 100%);
-    background-color: red;
+    background-color: blue;
     border-radius: 50%;
     transition: transform 150ms ease-in-out;
     aspect-ratio: 1 / 1;
@@ -151,6 +152,7 @@ body {
 .video-container.fullscreen {
     max-height: 100vh;
 }
+
 
 video {
   width: 100%;
