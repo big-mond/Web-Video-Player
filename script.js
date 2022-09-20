@@ -287,6 +287,7 @@ settingsBtn.addEventListener("click", () => {
     captionsBtn.classList.remove("active");
   }
 })
+
 // Open caption
 captionsBtn.addEventListener("click", () => {
   captions.classList.toggle("active");
