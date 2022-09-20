@@ -5,8 +5,34 @@
 }
 
 body {
-  margin: 0;
-}
+    margin: 0;
+  }
+
+/*Icon Visuals*/
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
 
 
 /*Timeline Container*/
@@ -238,18 +264,18 @@ video {
 }
 
 /*Hide volume buttons by default*/
-.volume-high, 
-.volume-low,
+.volume-up, 
+.volume-down,
 .volume-off {
   display: none;
 }
 
 /*Display volume button according to volume state*/
-.video-container[data-volume-level="high"] .volume-high {
+.video-container[data-volume-level="high"] .volume-up {
     display: block;
 }
 
-.video-container[data-volume-level="low"] .volume-low {
+.video-container[data-volume-level="low"] .volume-down {
     display: block;
 }
 
@@ -289,10 +315,12 @@ video {
 }
 
 
-/*If captions on, show off*/ 
+/*If captions on, hide off*/ 
 .video-container.captions .off {
     display: none;
 }
+
+/*If captions off, hide on*/ 
 .video-container:not(.captions) .on {
     display: none;
 }
@@ -301,6 +329,118 @@ video {
 .video-controls-container .controls button.wide {
     width: 50px;
 }
+
+/*If video is in miniplayer mode, hide out button*/
+.video-container.miniplayer .out {
+    display: none;
+}
+
+/*If video is NOT in miniplayer mode, hide in button*/
+.video-container:not(.miniplayer) .in {
+    display: none;
+}
+
+/*Settings Button*/
+.settings-btn {
+    font-size: 24px;
+    transition: 0.3s;
+  }
+  
+.settings-btn.active {
+    transform: rotate(-45deg);
+  }
+  
+.video-controls-container .captions,
+.video-controls-container .settings {
+  position: absolute;
+  right: 25px;
+  bottom: 62px;
+  background: rgb(28 28 28 / 90%);
+  width: 200px;
+  max-height: 250px;
+  height: auto;
+  color: #fff;
+  overflow-y: auto;
+  z-index: 20;
+  display: none;
+  border-radius: 5px;
+}
+
+.video-controls-container .captions.active,
+.video-controls-container .settings.active {
+  display: block;
+}
+
+.video-controls-container .captions .caption span,
+.video-controls-container .settings > div > span {
+  font-size: 14px;
+  font-weight: 300;
+  padding: 15px 30px;
+  border-bottom: 1px solid rgb(83, 83, 83);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+}
+.video-controls-container .settings > div .icon {
+  font-size: 14px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.video-controls-container .settings > div ul li span {
+  pointer-events: none;
+}
+
+.video-controls-container .captions .caption ul,
+.video-controls-container .settings > div ul {
+  position: relative;
+}
+.video-controls-container .captions .caption ul li,
+.video-controls-container .settings > div ul li {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  padding: 12px 33px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.video-controls-container .captions .caption ul li:hover,
+.video-controls-container .settings > div ul li:hover {
+  background: rgba(28, 28, 28, 0.9);
+}
+
+.video-controls-container .captions .caption ul li.active::before,
+.video-controls-container .settings > div ul li.active::before {
+  content: "\e876";
+  font-family: "Material Icons";
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-right: 10px;
+  font-size: 18px;
+}
+  
+.video-controls-container .captions::-webkit-scrollbar,
+.video-controls-container .settings::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.video-controls-container .captions::-webkit-scrollbar-thumb,
+.video-controls-container .settings::-webkit-scrollbar-thumb {
+  height: 20px;
+  border: 2px solid transparent;
+  background: rgba(83, 83, 83, 0.9);
+  border-radius: 20px;
+}
+
+
+
 
 /*If video is in theater mode, hide theater button*/
 .video-container.theater .theater {

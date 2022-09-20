@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--Google Material Icons-->  
+    <link 
+      rel="stylesheet"    
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round"/>
+  <!--Google Material Icons-->  
     <link 
       rel="stylesheet" 
-      href="https://fonts.googleapis.com/css2?family=Material+Icons"  />
-    <link 
-      rel="stylesheet" 
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
     <title>Web Video Player</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
@@ -30,58 +33,47 @@
             <div class="thumb-indicator"></div>
           </div>
         </div>
+      
       <!--Button Controls-->
         <div class="controls">
 
-          <span class="icon">
-            <i class="material-icons fast-rewind">replay_5</i>
-          </span>
-        
-        <!--PlayPause/SolidWhite-->
-          <button class="play-pause-btn">
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" >
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-            <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-            </svg>
+        <!--Replay-->
+          <button class="replay-btn">
+            <span class="material-icons">replay_5</span>
           </button>
-
-          <span class="icon">
-            <i class="material-icons fast-forward">forward_5</i>
-          </span>
         
+        <!--Play-->
+          <button class="play-pause-btn">
+            <span class="material-icons play-icon">play_arrow</span>
+            <span class="material-icons pause-icon">pause</span>
+          </button>
+          
+        <!--Forward-->  
+          <button class="foward-btn">
+            <span class="material-icons fast-forward">forward_5</span>
+          </button>
+          
         <!--Volume Controls-->
           <div class="volume-container">
             <button class="mute-btn">
-              <svg class="volume-high" viewBox="0 0 24 24" fill="currentColor" >
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-              </svg>
-              <svg class="volume-low" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>
-              </svg>
-              <svg class="volume-off" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-              </svg>
+              <span class="material-icons volume-up">volume_up</span>
+              <span class="material-icons volume-down">volume_down</span>
+              <span class="material-icons volume-off">volume_off</span>
             </button>
             <input class="volume-slider" type="range" min="0" max="1" step="any" value="1"></input>
           </div>
-        
+          
         <!--Duration counter-->
           <div class="duration-container">
             <div class="current-time">0.00</div>
             /
             <div class="total-time"></div>
           </div>
-        
+          
         <!--Closed Caption/White-->
           <button class="captions-btn">
-            <svg class="on" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12zM7 15h3c.55 0 1-.45 1-1v-1H9.5v.5h-2v-3h2v.5H11v-1c0-.55-.45-1-1-1H7c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1zm7 0h3c.55 0 1-.45 1-1v-1h-1.5v.5h-2v-3h2v.5H18v-1c0-.55-.45-1-1-1h-3c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1z"/>
-            </svg>
-            <svg class="off" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13,10c0-0.55,0.45-1,1-1h3c0.55,0,1,0.45,1,1v1h-1.5v-0.5h-2v1L13,10z M16.5,13.5l1.21,1.21C17.89,14.52,18,14.27,18,14v-1 h-1.5V13.5z M8.83,6H19v10.17l1.98,1.98c0-0.05,0.02-0.1,0.02-0.16V6c0-1.1-0.9-2-2-2H6.83L8.83,6z M19.78,22.61L17.17,20H5 c-1.11,0-2-0.9-2-2V6c0-0.05,0.02-0.1,0.02-0.15L1.39,4.22l1.41-1.41l18.38,18.38L19.78,22.61z M7.5,13.5h2V13h0.67l-2.5-2.5H7.5 V13.5z M15.17,18L11,13.83V14c0,0.55-0.45,1-1,1H7c-0.55,0-1-0.45-1-1v-4c0-0.32,0.16-0.59,0.4-0.78L5,7.83V18H15.17z"/>
-            </svg>
+            <span class="material-icons-outlined on">closed_caption</span>
+            <span class="material-icons-outlined off">closed_caption_disabled</span>
           </button>
           
         <!--Playback Speed-->
@@ -91,35 +83,82 @@
           
         <!--Mini Player/WhiteOutline-->
           <button class="miniplayer-btn">
-            <svg class="miniplayer-btn" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z"/>
-            </svg>
+              <span class="material-icons out">picture_in_picture</span>
+              <span class="material-icons in">picture_in_picture_alt</span>
+            
           </button>
           
         <!--Settings/SolidWhile--> 
-          <span class="icon">
-            <i class="material-icons settingsBtn">settings</i>
-          </span>
+          <button class="settings-btn">
+            <span class="material-icons settings-icon">settings</span>
+          </button>
           
         <!--Theater Button/WhiteOutline-->
           <button class="theater-btn">
-            <svg class="theater" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 5H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H5V7h14v10z"/>
-            </svg>
-            <svg class="original" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19,7H5C3.9,7,3,7.9,3,9v6c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V9C21,7.9,20.1,7,19,7z M19,15H5V9h14V15z"/>
-            </svg>
+            <span class="material-icons theater">crop_5_4</span>
+            <span class="material-icons original">crop_16_9</span>
           </button>
         
         <!--Fullscreen/SolidWhite-->
           <button class="fullscreen-btn">
-            <svg class="open" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-            </svg>
-            <svg class="close" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
-            </svg>
+            <span class="material-icons open">fullscreen</span>
+            <span class="material-icons close">fullscreen_exit</span>
           </button>
+        </div>
+        
+        <div class="settings">
+          <div data-label="settingsMenu">
+            <ul>
+              <li data-label="speed">
+                <span> Speed </span>
+                <span class="material-icons icon">
+                  navigate_next
+                </span>
+              </li>
+              <li data-label="quality">
+                <span> Quality </span>
+               <span class="material-icons icon">
+                navigate_next
+              </span>
+              </li>
+            </ul>
+          </div>
+          <div class="playback" data-label="speed" hidden>
+            <span>
+              <i class="material-icons icon back_arrow"  data-label="settingsMenu">
+                arrow_back
+              </i>
+              <span>Playback Speed </span>
+            </span>
+            <ul>
+              <li data-speed="0.25">0.25</li>
+  
+              <li data-speed="0.5">0.5</li>
+  
+              <li data-speed="0.75">0.75</li>
+  
+              <li data-speed="1" class="active">Normal</li>
+  
+              <li data-speed="1.25">1.25</li>
+  
+              <li data-speed="1.5">1.5</li>
+  
+              <li data-speed="1.75">1.75</li>
+  
+              <li data-speed="2">2</li>
+            </ul>
+          </div>
+          <div data-label="quality" hidden>
+            <span>
+              <i class="material-symbols-outlined icon back_arrow" data-label="settingsMenu">
+                arrow_back
+              </i>
+              <span>Playback Quality </span>
+            </span>
+            <ul>
+              <li data-quality="auto" class="active">auto</li>
+            </ul>
+          </div>
         </div>
       </div>
 

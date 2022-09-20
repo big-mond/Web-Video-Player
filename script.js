@@ -7,6 +7,11 @@ const thumbnailImg = document.querySelector(".thumbnail-img")
 const captionsBtn = document.querySelector(".captions-btn")
 const speedBtn = document.querySelector(".speed-btn")
 const miniPlayerBtn = document.querySelector(".miniplayer-btn")
+const settingsBtn = document.querySelector(".settings-btn")
+const settings = document.querySelector(".settings")
+const settingsMenu = document.querySelectorAll(
+    ".settings [data-label='settingsMenu'] > ul > li")
+const playback = document.querySelectorAll(".playback li")
 const theaterBtn = document.querySelector(".theater-btn")
 const fullscreenBtn = document.querySelector(".fullscreen-btn")
 const timelineContainer = document.querySelector(".timeline-container")
@@ -211,7 +216,7 @@ captionsBtn.addEventListener("click", toggleCaptions)
 //If it starts hidden, change to showing
 function toggleCaptions() {
   const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "shown" : "hidden"
+  captions.mode = isHidden ? "showing" : "hidden"
   videoContainer.classList.toggle("captions", isHidden)
 }
 
@@ -268,3 +273,145 @@ document.addEventListener("fullscreenchange", () => {
   videoContainer.classList.toggle("fullscreen", 
   document.fullscreenElement)
 })
+
+
+// Open settings
+settingsBtn.addEventListener("click", () => {
+  settings.classList.toggle("active");
+  settingsBtn.classList.toggle("active");
+  if (
+    captionsBtn.classList.contains("active") ||
+    captions.classList.contains("active")
+  ) {
+    captions.classList.remove("active");
+    captionsBtn.classList.remove("active");
+  }
+})
+// Open caption
+captionsBtn.addEventListener("click", () => {
+  captions.classList.toggle("active");
+  captionsBtn.classList.toggle("active");
+  if (
+    settingsBtn.classList.contains("active") ||
+    settings.classList.contains("active")
+  ) {
+    settings.classList.remove("active");
+    settingsBtn.classList.remove("active");
+  }
+})
+
+// Playback Rate
+
+playback.forEach((event) => {
+  event.addEventListener("click", () => {
+    removeActiveClasses(playback);
+    event.classList.add("active");
+    let speed = event.getAttribute("data-speed");
+    video.playbackRate = speed;
+  })
+})
+
+captions.forEach((event) => {
+  event.addEventListener("click", () => {
+    removeActiveClasses(caption);
+    event.classList.add("active");
+    changeCaption(event);
+    caption_text.innerHTML = "";
+  })
+})
+
+let track = video.textTracks;
+
+function changeCaption(lable) {
+  let trackLable = lable.getAttribute("data-track");
+  for (let i = 0; i < track.length; i++) {
+    track[i].mode = "disabled";
+    if (track[i].label == trackLable) {
+      track[i].mode = "showing";
+    }
+  }
+}
+
+const settingDivs = document.querySelectorAll(".settings > div");
+const settingBack = document.querySelectorAll(
+  ".settings > div .back_arrow"
+);
+const quality_ul = document.querySelector(
+  ".settings > [data-label='quality'] ul"
+);
+const qualities = document.querySelectorAll("source[size]");
+
+qualities.forEach((event) => {
+  let quality_html = `<li data-quality="${event.getAttribute(
+    "size"
+  )}">${event.getAttribute("size")}p</li>`;
+  quality_ul.insertAdjacentHTML("afterbegin", quality_html);
+});
+
+const quality_li = document.querySelectorAll(
+  ".settings > [data-label='quality'] ul > li"
+);
+quality_li.forEach((event) => {
+  event.addEventListener("click", (e) => {
+    let quality = event.getAttribute("data-quality");
+    removeActiveClasses(quality_li);
+    event.classList.add("active");
+    qualities.forEach((event) => {
+      if (event.getAttribute("size") == quality) {
+        let video_current_duration = video.currentTime;
+        let video_source = event.getAttribute("src");
+        video.src = video_source;
+        video.currentTime = video_current_duration;
+        playVideo();
+      }
+    });
+  });
+});
+
+settingBack.forEach((event) => {
+  event.addEventListener("click", (e) => {
+    let setting_label = e.target.getAttribute("data-label");
+    for (let i = 0; i < settingDivs.length; i++) {
+      if (settingDivs[i].getAttribute("data-label") == setting_label) {
+        settingDivs[i].removeAttribute("hidden");
+      } else {
+        settingDivs[i].setAttribute("hidden", "");
+      }
+    }
+  });
+});
+
+settingsMenu.forEach((event) => {
+  event.addEventListener("click", (e) => {
+    let setting_label = e.target.getAttribute("data-label");
+    for (let i = 0; i < settingDivs.length; i++) {
+      if (settingDivs[i].getAttribute("data-label") == setting_label) {
+        settingDivs[i].removeAttribute("hidden");
+      } else {
+        settingDivs[i].setAttribute("hidden", "");
+      }
+    }
+  });
+});
+
+function removeActiveClasses(e) {
+  e.forEach((event) => {
+    event.classList.remove("active");
+  });
+}
+
+let caption_text = document.querySelector(".caption_text");
+for (let i = 0; i < track.length; i++) {
+  track[i].addEventListener("cuechange", () => {
+    if (track[i].mode === "showing") {
+      if (track[i].activeCues[0]) {
+        let span = `<span><mark>${track[i].activeCues[0].text}</mark></span>`;
+        caption_text.innerHTML = span;
+      } else {
+        caption_text.innerHTML = "";
+      }
+    }
+  });
+}
+
+
