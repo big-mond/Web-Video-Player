@@ -1,4 +1,5 @@
 const playPauseBtn = document.querySelector(".play-pause-btn")
+const forwardBtn = document.querySelector(".forward-btn")
 const muteBtn = document.querySelector(".mute-btn")
 const currentTime = document.querySelector(".current-time")
 const totalTime = document.querySelector(".total-time")
@@ -201,6 +202,8 @@ function formatDuration(time) {
       minutes)}:${leadingZeroFormatter.format(seconds)}`
   }
 }
+
+forwardBtn.addEventListener("click", skip(+5))
 
 //Skip
 function skip(duration) {

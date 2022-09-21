@@ -2,8 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="">
+    <meta name="apple-mobile-web-app-title" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0
+      shrink-to-fit=no user-scalable=no" />
   <!--Google Material Icons-->  
     <link 
       rel="stylesheet"    
@@ -20,19 +25,26 @@
   <br/>
   
   <body>
+  <!--Video Header-->
+    <div class="video-header">
+      <div class="video-title">
+        <span class="video-name">Video</span>
+      </div>
+    </div>
+    
+  <!--Video Container-->
     <div class="video-container paused" data-volume-level="high">
     <!--Scroll Preview-->
       <img class="thumbnail-img">
     <!--Video Controls-->
       <div class="video-controls-container">
+        <!--Closed Caption/White-->
+        <button class="captions-btn">
+          <span class="material-icons-outlined on">closed_caption</span>
+          <span class="material-icons-outlined off">closed_caption_disabled</span>
+        </button>
       
-      <!--Timeline-->
-        <div class="timeline-container">
-          <div class="timeline">
-            <img class="preview-img">
-            <div class="thumb-indicator"></div>
-          </div>
-        </div>
+      
       
       <!--Button Controls-->
         <div class="controls">
@@ -43,16 +55,31 @@
           </button>
         
         <!--Play-->
-          <button class="play-pause-btn">
+          <button class="play-pause-btn" aria-label="Play (k)">
             <span class="material-icons play-icon">play_arrow</span>
             <span class="material-icons pause-icon">pause</span>
           </button>
           
         <!--Forward-->  
-          <button class="foward-btn">
-            <span class="material-icons fast-forward">forward_5</span>
+          <button class="forward-btn">
+            <span class="material-icons">forward_5</span>
           </button>
-          
+        
+          <!--Timeline-->
+          <div class="timeline-container">
+            <div class="timeline">
+              <img class="preview-img">
+              <div class="thumb-indicator"></div>
+            </div>
+          </div>
+
+          <!--Duration counter-->
+          <div class="duration-container">
+            <div class="current-time" aria-label="Current time">0.00</div>
+            /
+            <div class="total-time" aria-label="Duration"></div>
+          </div>
+
         <!--Volume Controls-->
           <div class="volume-container">
             <button class="mute-btn">
@@ -63,42 +90,31 @@
             <input class="volume-slider" type="range" min="0" max="1" step="any" value="1"></input>
           </div>
           
-        <!--Duration counter-->
-          <div class="duration-container">
-            <div class="current-time">0.00</div>
-            /
-            <div class="total-time"></div>
-          </div>
-          
-        <!--Closed Caption/White-->
-          <button class="captions-btn">
-            <span class="material-icons-outlined on">closed_caption</span>
-            <span class="material-icons-outlined off">closed_caption_disabled</span>
-          </button>
+        
           
         <!--Playback Speed-->
           <button class="speed-btn wide">
             1x
           </button>
           
-        <!--Mini Player/WhiteOutline-->
-          <button class="miniplayer-btn">
-              <span class="material-icons out">picture_in_picture</span>
-              <span class="material-icons in">picture_in_picture_alt</span>
-            
-          </button>
-          
+        <!--Theater Button/WhiteOutline-->
+        <button class="theater-btn">
+          <span class="material-icons theater">crop_5_4</span>
+          <span class="material-icons original">crop_16_9</span>
+        </button>
+        
         <!--Settings/SolidWhile--> 
           <button class="settings-btn">
             <span class="material-icons settings-icon">settings</span>
           </button>
+
+        <!--Mini Player/WhiteOutline-->
+        <button class="miniplayer-btn">
+          <span class="material-icons out">picture_in_picture</span>
+          <span class="material-icons in">picture_in_picture_alt</span>
+        </button>
+      
           
-        <!--Theater Button/WhiteOutline-->
-          <button class="theater-btn">
-            <span class="material-icons theater">crop_5_4</span>
-            <span class="material-icons original">crop_16_9</span>
-          </button>
-        
         <!--Fullscreen/SolidWhite-->
           <button class="fullscreen-btn">
             <span class="material-icons open">fullscreen</span>

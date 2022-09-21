@@ -38,17 +38,16 @@ body {
 /*Timeline Container*/
 .timeline-container {
     height: 7px;
-    margin-inline: .5rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    flex: 1;
+    min-width: 0;
 }
 
 /*Timeline Settings*/
 .timeline {
     background-color: rgba(100,100,100,.5);
-    height: 3px;
-    width: 100%;
+    margin-left: 6.5px;
+    margin-right: 13px;
     position: relative;
 }
 
@@ -78,7 +77,7 @@ body {
     bottom: 0;
     /*Right value is 100% - progress position x 100%*/
     right: calc(100% - var(--progress-position) * 100%);
-    background-color: blue;
+    background-color: white;
 }
 
 /*Timeline thumb indicator*/
@@ -93,7 +92,7 @@ body {
     top: -50%;
     /*Determines position. Progress position x 100%*/
     left: calc(var(--progress-position) * 100%);
-    background-color: blue;
+    background-color: white;
     border-radius: 50%;
     transition: transform 150ms ease-in-out;
     aspect-ratio: 1 / 1;
@@ -147,17 +146,38 @@ body {
 
 /*When hovering double in size*/
 .video-container.scrubbing .timeline,
-.timeline-container:hover .timeline {
+.timeline-container .timeline {
     height: 100%;
+}
+
+
+/*Video Header*/
+.video-header {
+    font-size: 21px;
+    width: 100%;
+    text-align: center;
+    color: black; 
+}
+
+
+/*Video Title*/
+.video-title {
+  padding: 5px;
+  padding-left: 10px;
+  text-align: left;
+  font-size: 16px;
+  margin-top: 30px;
+  border-radius: 4px 4px 0 0;
 }
 
 
 /*Video Container*/
 .video-container {
-  position: relative;
-  width: 90%;
-  max-width: 1000px;
   display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 200px;
+  max-width: 100%;
   justify-content: center;
   margin-inline: auto;
   background-color: black;
@@ -226,9 +246,9 @@ video {
 /*Style buttons and controls*/
 .video-controls-container .controls {
     display: flex;
+    align-items: center;
     gap: .5rem;
     padding: .25rem;
-    align-items: center;
 }
 
 
@@ -245,7 +265,7 @@ video {
     /*Different opacity when hovering*/
     cursor: pointer;
     opacity: .85;
-    transition: opacity 150ms ease-in-out;
+    transition: opacity .4s ease-in-out;
 }
 
 .video-controls-container .controls button:hover {
