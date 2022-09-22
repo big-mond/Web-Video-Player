@@ -37,7 +37,7 @@ body {
 
 /*Timeline Container*/
 .timeline-container {
-    height: 7px;
+    height: .38rem;
     cursor: pointer;
     flex: 1;
     min-width: 0;
@@ -46,12 +46,14 @@ body {
 /*Timeline Settings*/
 .timeline {
     background-color: rgba(100,100,100,.5);
-    margin-left: 6.5px;
-    margin-right: 13px;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    /*Rounds Edges*/
+    border-radius: .5rem;
     position: relative;
 }
 
-
+/*Time Preview*/
 .timeline::before {
     content: "";
     position: absolute;
@@ -63,10 +65,12 @@ body {
     /*Right value is 100% - preview position x 100%*/
     right: calc(100% - var(--preview-position) * 100%);
     background-color: rgb(150,150,150);
+    /*Rounds Edges*/
+    border-radius: .4rem;
     display: none;
 } 
 
-
+/*Timeline Progress*/
 .timeline::after {
     content: "";
     position: absolute;
@@ -77,7 +81,9 @@ body {
     bottom: 0;
     /*Right value is 100% - progress position x 100%*/
     right: calc(100% - var(--progress-position) * 100%);
-    background-color: white;
+    background-color: rgb(9, 10, 87);
+    /*Rounds Edges*/
+    border-radius: .4rem;
 }
 
 /*Timeline thumb indicator*/
@@ -96,8 +102,10 @@ body {
     border-radius: 50%;
     transition: transform 150ms ease-in-out;
     aspect-ratio: 1 / 1;
+    z-index: 1;
 }
 
+/*Timeline Preview Image*/
 .timeline .preview-img {
     position: absolute;
     height: 80px;
@@ -113,6 +121,7 @@ body {
     display: none;
 }
 
+/*Thumbnail Image*/
 .thumbnail-img {
     position: absolute;
     /*Fills all available space*/
@@ -144,7 +153,7 @@ body {
     --scale: 1;
 }
 
-/*When hovering double in size*/
+/*When scrubbing double in size*/
 .video-container.scrubbing .timeline,
 .timeline-container .timeline {
     height: 100%;
@@ -205,7 +214,7 @@ video {
 }
 
 
-/*Controls*/
+/*Controls Container*/
 .video-controls-container {
   position: absolute;
   /*Fills out video to edges*/
@@ -217,10 +226,10 @@ video {
   z-index: 100;
   /*Keeps controls hidden unless hover*/
   opacity: 0;
-  transition: opacity 150ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
 }
 
-/*Background for controls*/
+/*Background for controls container*/
 .video-controls-container::before {
     content: "";
     position: absolute;
@@ -236,15 +245,48 @@ video {
     pointer-events: none;
 }
 
-/*Play button fade*/
+/*Video Controls Appear on Hover and Paused*/
 .video-container:hover .video-controls-container,
 .video-controls-container:focus-within .video-controls-container,
 .video-container.paused .video-controls-container {
   opacity: 1;
 }
 
-/*Style buttons and controls*/
-.video-controls-container .controls {
+
+/*Top Controls*/
+.video-controls-container .controls-top {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: .5rem;
+    padding: .25rem;
+    font-size: 18px;
+}
+
+
+/*Top Controls Buttons*/
+.video-controls-container .controls-top button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    height: 24px;
+    width: 24px;
+    font-size: 1.1rem;
+    cursor:pointer;
+    /*Different opacity when hovering*/
+    cursor: pointer;
+    opacity: .85;
+    transition: opacity .3s ease-in-out;
+}
+
+.video-controls-container .controls-top button:hover {
+    opacity: 1;
+}
+
+
+/*Bottom Controls*/
+.video-controls-container .controls-bottom {
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -252,23 +294,23 @@ video {
 }
 
 
-/*Buttons*/
-.video-controls-container .controls button {
+/*Bottom Controls Buttons*/
+.video-controls-container .controls-bottom button {
     background: none;
     border: none;
     color: inherit;
     padding: 0;
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     font-size: 1.1rem;
     cursor:pointer;
     /*Different opacity when hovering*/
     cursor: pointer;
     opacity: .85;
-    transition: opacity .4s ease-in-out;
+    transition: opacity .3s ease-in-out;
 }
 
-.video-controls-container .controls button:hover {
+.video-controls-container .controls-bottom button:hover {
     opacity: 1;
 }
 
@@ -330,8 +372,7 @@ video {
 .duration-container {
     display: flex;
     align-items: center;
-    gap: .25 rem;
-    flex-grow: 1;
+    gap: .25rem;
 }
 
 
@@ -345,10 +386,10 @@ video {
     display: none;
 }
 
-/*Wide Playrate button*/
+/*Wide Playrate button
 .video-controls-container .controls button.wide {
     width: 50px;
-}
+}*/
 
 /*If video is in miniplayer mode, hide out button*/
 .video-container.miniplayer .out {

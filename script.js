@@ -1,4 +1,5 @@
 const playPauseBtn = document.querySelector(".play-pause-btn")
+const replayBtn = document.querySelector(".replay-btn")
 const forwardBtn = document.querySelector(".forward-btn")
 const muteBtn = document.querySelector(".mute-btn")
 const currentTime = document.querySelector(".current-time")
@@ -61,20 +62,29 @@ document.addEventListener("keydown", e => {
     }
 })
 
+//Prevent Right-Click on video
+video.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
 
 //Timeline
 
+//If mouse is moving starts handleTimelineUpdate
 timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
+
 //If mouse is pressed down, toggle scrubbing
 timelineContainer.addEventListener("mousedown", toggleScrubbing)
+
 //Only enter scrubbing when in timeline and clicking down
 document.addEventListener("mouseup", e => {
   if (isScrubbing) toggleScrubbing(e)
 })
+
 //If scrubbing starts handleTimelineUpdate
 document.addEventListener("mousemove", e => {
   if (isScrubbing) handleTimelineUpdate(e)
 })
+
 
 let isScrubbing = false
 let wasPaused
@@ -124,6 +134,7 @@ function handleTimelineUpdate(e) {
 }
 
 
+
 //Play/Pause button toggle
 playPauseBtn.addEventListener("click", togglePlay)
 video.addEventListener("click", togglePlay)
@@ -133,6 +144,7 @@ function togglePlay() {
     video.paused ? video.play() : video.pause()
 }
 
+//Add paused class on paused and remove on play
 video.addEventListener("play", () => {
     videoContainer.classList.remove("paused")
 })
@@ -142,14 +154,34 @@ video.addEventListener("pause", () => {
 })
 
 
+
+//Skip
+function skip(duration) {
+  video.currentTime += duration
+}
+
+//Replay Button
+replayBtn.addEventListener("click", () => {
+  skip(-5)
+})
+
+//Forward Button
+forwardBtn.addEventListener("click", () => {
+  skip(+5)
+})
+
+
+
 //Volume toggle
 muteBtn.addEventListener("click", toggleMute)
+
 //Set volume slider to corresponding value
 volumeSlider.addEventListener("input", e => {
   video.volume = e.target.value
   video.muted = e.target.value === 0 
 })
 
+//Mute
 function toggleMute() {
   video.muted = !video.muted
 }
@@ -169,6 +201,7 @@ video.addEventListener("volumechange", () => {
   
   videoContainer.dataset.volumeLevel = volumeLevel
 })
+
 
 
 //Current Time
@@ -203,12 +236,7 @@ function formatDuration(time) {
   }
 }
 
-forwardBtn.addEventListener("click", skip(+5))
 
-//Skip
-function skip(duration) {
-  video.currentTime += duration
-}
 
 //Captions
 const captions = video.textTracks[0]
@@ -223,15 +251,11 @@ function toggleCaptions() {
   videoContainer.classList.toggle("captions", isHidden)
 }
 
-//Playback Speed
-speedBtn.addEventListener("click", changePlaybackSpeed)
 
-function changePlaybackSpeed() {
-  let newPlaybackRate = video.playbackRate + 0.25
-  if (newPlaybackRate > 2) newPlaybackRate = 0.25
-  video.playbackRate = newPlaybackRate
-  speedBtn.textContent = `${newPlaybackRate}x`
-}
+
+
+
+
 
 //View Modes
 miniPlayerBtn.addEventListener("click", toggleMiniPlayerMode)
@@ -278,10 +302,11 @@ document.addEventListener("fullscreenchange", () => {
 })
 
 
-// Open settings
+//Settings Button and Menu
 settingsBtn.addEventListener("click", () => {
   settings.classList.toggle("active");
   settingsBtn.classList.toggle("active");
+  //If captions on turn them off
   if (
     captionsBtn.classList.contains("active") ||
     captions.classList.contains("active")
@@ -291,7 +316,7 @@ settingsBtn.addEventListener("click", () => {
   }
 })
 
-// Open caption
+// Open captions
 captionsBtn.addEventListener("click", () => {
   captions.classList.toggle("active");
   captionsBtn.classList.toggle("active");
@@ -303,6 +328,17 @@ captionsBtn.addEventListener("click", () => {
     settingsBtn.classList.remove("active");
   }
 })
+
+//Playback Speed
+speedBtn.addEventListener("click", changePlaybackSpeed)
+
+function changePlaybackSpeed() {
+  let newPlaybackRate = video.playbackRate + 0.25
+  if (newPlaybackRate > 2) newPlaybackRate = 0.25
+  video.playbackRate = newPlaybackRate
+  speedBtn.textContent = `${newPlaybackRate}x`
+}
+
 
 // Playback Rate
 
@@ -326,23 +362,23 @@ captions.forEach((event) => {
 
 let track = video.textTracks;
 
-function changeCaption(lable) {
-  let trackLable = lable.getAttribute("data-track");
+function changeCaption(Label) {
+  let trackLabel = Label.getAttribute("data-track");
   for (let i = 0; i < track.length; i++) {
     track[i].mode = "disabled";
-    if (track[i].label == trackLable) {
+    if (track[i].label == trackLabel) {
       track[i].mode = "showing";
     }
   }
 }
 
 const settingDivs = document.querySelectorAll(".settings > div");
-const settingBack = document.querySelectorAll(
+const settingsBack = document.querySelectorAll(
   ".settings > div .back_arrow"
-);
+)
 const quality_ul = document.querySelector(
   ".settings > [data-label='quality'] ul"
-);
+)
 const qualities = document.querySelectorAll("source[size]");
 
 qualities.forEach((event) => {
@@ -350,11 +386,11 @@ qualities.forEach((event) => {
     "size"
   )}">${event.getAttribute("size")}p</li>`;
   quality_ul.insertAdjacentHTML("afterbegin", quality_html);
-});
+})
 
 const quality_li = document.querySelectorAll(
   ".settings > [data-label='quality'] ul > li"
-);
+)
 quality_li.forEach((event) => {
   event.addEventListener("click", (e) => {
     let quality = event.getAttribute("data-quality");
@@ -372,7 +408,7 @@ quality_li.forEach((event) => {
   });
 });
 
-settingBack.forEach((event) => {
+settingsBack.forEach((event) => {
   event.addEventListener("click", (e) => {
     let setting_label = e.target.getAttribute("data-label");
     for (let i = 0; i < settingDivs.length; i++) {
