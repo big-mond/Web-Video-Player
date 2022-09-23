@@ -50,11 +50,11 @@ document.addEventListener("keydown", e => {
           break
         case "arrowLeft":
         case "j":
-          skip(-5)
+          skip(-10)
           break
         case "arrowRight":
         case "l":
-          skip(+5)
+          skip(+10)
           break
         case "c":
           toggleCaptions()
@@ -162,12 +162,12 @@ function skip(duration) {
 
 //Replay Button
 replayBtn.addEventListener("click", () => {
-  skip(-5)
+  skip(-10)
 })
 
 //Forward Button
 forwardBtn.addEventListener("click", () => {
-  skip(+5)
+  skip(+10)
 })
 
 

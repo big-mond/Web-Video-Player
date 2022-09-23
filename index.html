@@ -31,7 +31,7 @@
         <span class="video-name">Video</span>
       </div>
     </div>
-    
+    <section>
   <!--Video Container-->
     <div class="video-container paused" data-volume-level="high">
     <!--Scroll Preview-->
@@ -40,19 +40,22 @@
     <!--Top Button Controls-->
       <div class="top-controls-container">
       <!--Closed Caption/White-->
-        <button class="captions-btn">
+        <button class="captions-btn tooltip" aria-label="Captions (c)"> 
+          <span class="tooltip-text">Captions (c)</span>
           <span class="material-icons-outlined on">closed_caption</span>
           <span class="material-icons-outlined off">closed_caption_disabled</span>
         </button>
         
       <!--Theater Button/WhiteOutline-->
-        <button class="theater-btn">
+        <button class="theater-btn tooltip" aria-label="Theater (t)">
+          <span class="tooltip-text">Theater (t)</span>
           <span class="material-icons theater">crop_5_4</span>
           <span class="material-icons original">crop_16_9</span>
         </button>
         
       <!--Mini Player/WhiteOutline-->
-        <button class="miniplayer-btn">
+        <button class="miniplayer-btn tooltip" aria-label="Miniplayer (i)">
+          <span class="tooltip-text">Miniplayer (i)</span>
           <span class="material-icons in">picture_in_picture</span>
           <span class="material-icons out">picture_in_picture_alt</span>
         </button>
@@ -62,19 +65,22 @@
       <div class="bottom-controls-container">
       
         <!--Replay-->
-          <button class="replay-btn">
-            <span class="material-icons">replay_5</span>
-          </button>
+          <button class="replay-btn tooltip" aria-label="Replay 10s (j)">
+            <span class="tooltip-text">Replay 10s (j)</span>
+            <span class="material-icons">replay_10</span>
+            </button>
         
         <!--Play-->
-          <button class="play-pause-btn" aria-label="Play (k)">
+          <button class="play-pause-btn tooltip" aria-label="Play (k)">
+            <span class="tooltip-text">Play (k)</span>
             <span class="material-icons play-icon">play_arrow</span>
             <span class="material-icons pause-icon">pause</span>
           </button>
           
         <!--Forward-->  
-          <button class="forward-btn">
-            <span class="material-icons">forward_5</span>
+          <button class="forward-btn tooltip" aria-label="Forward 10s (l)">
+            <span class="tooltip-text">Forward 10s (l)</span>
+            <span class="material-icons">forward_10</span>
           </button>
         
           <!--Timeline-->
@@ -94,7 +100,8 @@
 
         <!--Volume Controls-->
           <div class="volume-container">
-            <button class="mute-btn">
+            <button class="mute-btn tooltip" aria-label="Mute (m)">
+              <span class="tooltip-text">Mute (m)</span>
               <span class="material-icons volume-up">volume_up</span>
               <span class="material-icons volume-down">volume_down</span>
               <span class="material-icons volume-off">volume_off</span>
@@ -120,7 +127,8 @@
       
           
         <!--Fullscreen/SolidWhite-->
-          <button class="fullscreen-btn">
+          <button class="fullscreen-btn tooltip" aria-label="Fullscreen (f)">
+            <span class="tooltip-text">Fullscreen (f)</span>
             <span class="material-icons open">fullscreen</span>
             <span class="material-icons close">fullscreen_exit</span>
           </button>
@@ -193,6 +201,7 @@
         <track kind="captions" srclang="en" src="test.vtt">
       </video>
     </div>
+  </section>
   </body>
 
 </html>
