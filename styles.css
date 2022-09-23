@@ -35,131 +35,6 @@ body {
   }
 
 
-/*Timeline Container*/
-.timeline-container {
-    height: .38rem;
-    cursor: pointer;
-    flex: 1;
-    min-width: 0;
-}
-
-/*Timeline Settings*/
-.timeline {
-    background-color: rgba(100,100,100,.5);
-    margin-left: .5rem;
-    margin-right: .5rem;
-    /*Rounds Edges*/
-    border-radius: .5rem;
-    position: relative;
-}
-
-/*Time Preview*/
-.timeline::before {
-    content: "";
-    position: absolute;
-    /*Starts to the left*/
-    left: 0;
-    /*Fills full size of section*/
-    top: 0;
-    bottom: 0;
-    /*Right value is 100% - preview position x 100%*/
-    right: calc(100% - var(--preview-position) * 100%);
-    background-color: rgb(150,150,150);
-    /*Rounds Edges*/
-    border-radius: .4rem;
-    display: none;
-} 
-
-/*Timeline Progress*/
-.timeline::after {
-    content: "";
-    position: absolute;
-    /*Starts to the left*/
-    left: 0;
-    /*Fills full size of section*/
-    top: 0;
-    bottom: 0;
-    /*Right value is 100% - progress position x 100%*/
-    right: calc(100% - var(--progress-position) * 100%);
-    background-color: rgb(9, 10, 87);
-    /*Rounds Edges*/
-    border-radius: .4rem;
-}
-
-/*Timeline thumb indicator*/
-.timeline .thumb-indicator {
-    --scale: 0;
-    position: absolute;
-    /*Center circle by half of its width*/
-    transform: translateX(-50%) scale(var(--scale));
-    /*Height twice the size of bar*/
-    height: 200%;
-    /*Keep in middle of bar*/
-    top: -50%;
-    /*Determines position. Progress position x 100%*/
-    left: calc(var(--progress-position) * 100%);
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 150ms ease-in-out;
-    aspect-ratio: 1 / 1;
-    z-index: 1;
-}
-
-/*Timeline Preview Image*/
-.timeline .preview-img {
-    position: absolute;
-    height: 80px;
-    aspect-ratio: 16 / 9;
-    /*Preview one pixel above cursor*/
-    top: -1rem;
-    /*-50 to center, -100 for above cursor*/
-    transform: translate(-50%, -100%);
-    /*Determines position. Preview position x 100%*/
-    left: calc(var(--preview-position) * 100%);
-    border-radius: .25rem;
-    border: 2px solid white;
-    display: none;
-}
-
-/*Thumbnail Image*/
-.thumbnail-img {
-    position: absolute;
-    /*Fills all available space*/
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    width: 100%;
-    display: none;
-}
-
-.video-container.scrubbing .thumbnail-img {
-    display: block;
-}
-
-.video-container.scrubbing .preview-img,
-.timeline-container:hover .preview-img {
-    display: block;
-}
-
-.video-container.scrubbing .timeline::before,
-.timeline-container:hover .timeline::before {
-    display: block;
-}
-
-.video-container.scrubbing .thumb-indicator,
-.timeline-container:hover .thumb-indicator {
-    --scale: 1;
-}
-
-/*When scrubbing double in size*/
-.video-container.scrubbing .timeline,
-.timeline-container .timeline {
-    height: 100%;
-}
-
-
 /*Video Header*/
 .video-header {
     font-size: 21px;
@@ -186,10 +61,108 @@ body {
   flex-direction: column;
   position: relative;
   min-width: 200px;
-  max-width: 100%;
+  max-width: 90%;
   justify-content: center;
   margin-inline: auto;
   background-color: black;
+}
+
+video {
+  width: 100%;
+}
+
+/*Controls Container*/
+.top-controls-container, 
+.bottom-controls-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .25rem;
+  color: white;
+  /*Keeps overtop of everything*/
+  z-index: 100;
+  /*Keeps controls hidden unless hover*/
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+/*Top Controls Container*/
+.top-controls-container {
+  top: 0px;
+  right: 0px;
+  justify-content: end;
+  font-size: 1.1rem;
+}
+
+/*Bottom Controls Container*/
+.bottom-controls-container {
+  /*Fills out video to edges*/
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/*Background for controls container*/
+.top-controls-container::before,
+.bottom-controls-container::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /*Fade up, black to transparent*/
+    background: linear-gradient(to top, rgba(0,0,0,75), transparent);
+    width: 100%;
+    /*No matter how high cover same percent of area*/
+    aspect-ratio: 6 / 1;
+    /*Put behind button*/
+    z-index: -1;
+    /*Allow to click buttons*/
+    pointer-events: none;
+}
+
+/*Top Controls Transparent Background*/
+.top-controls-container::before {
+    background: transparent;
+}
+
+
+/*Top Controls Appear on Hover and Paused*/
+.video-container:hover .top-controls-container,
+.bottom-controls-container:focus-within .top-controls-container,
+.video-container.paused .top-controls-container,
+/*Bottom Controls Appear on Hover and Paused*/
+.video-container:hover .bottom-controls-container,
+.bottom-controls-container:focus-within .bottom-controls-container,
+.video-container.paused .bottom-controls-container{
+  opacity: 1;
+}
+
+
+/*Top Controls Buttons*/
+.video-container .top-controls-container button,
+/*Bottom Controls Buttons*/
+.video-container .bottom-controls-container button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    height: 24px;
+    width: 24px;
+    font-size: 1.1rem;
+    cursor:pointer;
+    /*Different opacity when hovering*/
+    cursor: pointer;
+    opacity: .85;
+    transition: opacity .3s ease-in-out;
+}
+
+/*Top Controls Visible on Hover*/
+.video-container .top-controls-container button:hover,
+/*Bottom Controls Visible on Hover*/
+.video-container .bottom-controls-container button:hover {
+    opacity: 1;
 }
 
 
@@ -209,121 +182,189 @@ body {
 }
 
 
-video {
-  width: 100%;
+/*If captions on, hide off*/ 
+.video-container.captions .off {
+  display: none;
+}
+
+/*If captions off, hide on*/ 
+.video-container:not(.captions) .on {
+  display: none;
+}
+
+/*Wide Playrate button*/
+.bottom-controls-container .controls button.wide {
+  width: 50px;
+}
+
+/*If video is in miniplayer mode, hide out button*/
+.video-container.miniplayer .out {
+  display: none;
+}
+
+/*If video is NOT in miniplayer mode, hide in button*/
+.video-container:not(.miniplayer) .in {
+  display: none;
+}
+
+/*If video is in theater mode, hide theater button*/
+.video-container.theater .theater {
+  display: none;
+}
+
+/*If video is NOT in theater mode, hide original button*/
+.video-container:not(.theater) .original {
+  display: none;
 }
 
 
-/*Controls Container*/
-.video-controls-container {
-  position: absolute;
-  /*Fills out video to edges*/
-  bottom: 0;
-  left: 0;
-  right: 0;
-  color: white;
-  /*Keeps overtop of everything*/
-  z-index: 100;
-  /*Keeps controls hidden unless hover*/
-  opacity: 0;
-  transition: opacity 300ms ease-in-out;
-}
-
-/*Background for controls container*/
-.video-controls-container::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    /*Fade up, black to transparent*/
-    background: linear-gradient(to top, rgba(0,0,0,75), transparent);
-    width: 100%;
-    /*No matter how high cover same percent of area*/
-    aspect-ratio: 6 / 1;
-    /*Put behind button*/
-    z-index: -1;
-    /*Allow to click buttons*/
-    pointer-events: none;
-}
-
-/*Video Controls Appear on Hover and Paused*/
-.video-container:hover .video-controls-container,
-.video-controls-container:focus-within .video-controls-container,
-.video-container.paused .video-controls-container {
-  opacity: 1;
-}
-
-
-/*Top Controls*/
-.video-controls-container .controls-top {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    gap: .5rem;
-    padding: .25rem;
-    font-size: 18px;
-}
-
-
-/*Top Controls Buttons*/
-.video-controls-container .controls-top button {
-    background: none;
-    border: none;
-    color: inherit;
-    padding: 0;
-    height: 24px;
-    width: 24px;
-    font-size: 1.1rem;
-    cursor:pointer;
-    /*Different opacity when hovering*/
-    cursor: pointer;
-    opacity: .85;
-    transition: opacity .3s ease-in-out;
-}
-
-.video-controls-container .controls-top button:hover {
-    opacity: 1;
-}
-
-
-/*Bottom Controls*/
-.video-controls-container .controls-bottom {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding: .25rem;
-}
-
-
-/*Bottom Controls Buttons*/
-.video-controls-container .controls-bottom button {
-    background: none;
-    border: none;
-    color: inherit;
-    padding: 0;
-    height: 24px;
-    width: 24px;
-    font-size: 1.1rem;
-    cursor:pointer;
-    /*Different opacity when hovering*/
-    cursor: pointer;
-    opacity: .85;
-    transition: opacity .3s ease-in-out;
-}
-
-.video-controls-container .controls-bottom button:hover {
-    opacity: 1;
-}
-
-
+/*Play/Pause*/
 /*If video is paused, hide pause button*/
 .video-container.paused .pause-icon {
-    display: none;
+  display: none;
 }
 
 /*If video is NOT paused, hide play button*/
 .video-container:not(.paused) .play-icon {
-    display: none;
+  display: none;
 }
+
+
+
+/*Timeline Container*/
+.timeline-container {
+  height: .38rem;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+/*Timeline Settings*/
+.timeline {
+  background-color: rgba(100,100,100,.5);
+  margin-left: .5rem;
+  margin-right: .5rem;
+  /*Rounds Edges*/
+  border-radius: .5rem;
+  position: relative;
+}
+
+/*Time Preview*/
+.timeline::before {
+  content: "";
+  position: absolute;
+  /*Starts to the left*/
+  left: 0;
+  /*Fills full size of section*/
+  top: 0;
+  bottom: 0;
+  /*Right value is 100% - preview position x 100%*/
+  right: calc(100% - var(--preview-position) * 100%);
+  background-color: rgb(150,150,150);
+  /*Rounds Edges*/
+  border-radius: .4rem;
+  display: none;
+} 
+
+/*Timeline Progress*/
+.timeline::after {
+  content: "";
+  position: absolute;
+  /*Starts to the left*/
+  left: 0;
+  /*Fills full size of section*/
+  top: 0;
+  bottom: 0;
+  /*Right value is 100% - progress position x 100%*/
+  right: calc(100% - var(--progress-position) * 100%);
+  background-color: rgb(9, 10, 87);
+  /*Rounds Edges*/
+  border-radius: .4rem;
+}
+
+/*Timeline thumb indicator*/
+.timeline .thumb-indicator {
+  --scale: 0;
+  position: absolute;
+  /*Center circle by half of its width*/
+  transform: translateX(-50%) scale(var(--scale));
+  /*Height twice the size of bar*/
+  height: 200%;
+  /*Keep in middle of bar*/
+  top: -50%;
+  /*Determines position. Progress position x 100%*/
+  left: calc(var(--progress-position) * 100%);
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 150ms ease-in-out;
+  aspect-ratio: 1 / 1;
+  z-index: 1;
+}
+
+/*Timeline Preview Image*/
+.timeline .preview-img {
+  position: absolute;
+  height: 80px;
+  aspect-ratio: 16 / 9;
+  /*Preview one pixel above cursor*/
+  top: -1rem;
+  /*-50 to center, -100 for above cursor*/
+  transform: translate(-50%, -100%);
+  /*Determines position. Preview position x 100%*/
+  left: calc(var(--preview-position) * 100%);
+  border-radius: .25rem;
+  border: 2px solid white;
+  display: none;
+}
+
+/*Thumbnail Image*/
+.thumbnail-img {
+  position: absolute;
+  /*Fills all available space*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+/*Thumbnail while scrubbing*/
+.video-container.scrubbing .thumbnail-img {
+  display: block;
+}
+
+.video-container.scrubbing .preview-img,
+.timeline-container:hover .preview-img {
+  display: block;
+}
+
+.video-container.scrubbing .timeline::before,
+.timeline-container:hover .timeline::before {
+  display: block;
+}
+
+.video-container.scrubbing .thumb-indicator,
+.timeline-container:hover .thumb-indicator {
+  --scale: 1;
+}
+
+/*When scrubbing double in size*/
+.video-container.scrubbing .timeline,
+.timeline-container .timeline {
+  height: 100%;
+}
+
+
+
+/*Duration counter*/
+.duration-container {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
 
 /*Hide volume buttons by default*/
 .volume-up, 
@@ -347,59 +388,32 @@ video {
 
 .volume-container {
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
 }
 
 /*Volume slider closed unless hovering*/
 .volume-slider {
+    position: absolute;
     /*Hide by default*/
-    width: 0;
+    width: 0px;
+    height: 0px;
     /*Fade in from left to right*/
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: width 150ms ease-in-out, transform 150ms ease-in-out;
-}
-
-.volume-container:hover .volume-slider,
-/*tab controls*/ 
-.volume-slider:focus-within {
-    width: 100px;
-    transform: scaleX(1);
-}
-
-
-/*Duration counter*/
-.duration-container {
-    display: flex;
-    align-items: center;
-    gap: .25rem;
-}
-
-
-/*If captions on, hide off*/ 
-.video-container.captions .off {
-    display: none;
-}
-
-/*If captions off, hide on*/ 
-.video-container:not(.captions) .on {
-    display: none;
-}
-
-/*Wide Playrate button
-.video-controls-container .controls button.wide {
+    transform-origin: center;
+    /*From zero vertically*/
+    transform: scaleY(0) rotate(-90deg);
+  }
+  
+  .volume-container:hover .volume-slider,
+  /*tab controls*/ 
+  .volume-slider:focus-within {
+    /*Height and Width are reversed*/
     width: 50px;
-}*/
+    height: 100px;
+    transform: scaleY(1) rotate(-90deg);
+    transition: width 50ms ease-in-out, transform 50ms ease-in-out;
+  }
 
-/*If video is in miniplayer mode, hide out button*/
-.video-container.miniplayer .out {
-    display: none;
-}
-
-/*If video is NOT in miniplayer mode, hide in button*/
-.video-container:not(.miniplayer) .in {
-    display: none;
-}
 
 /*Settings Button*/
 .settings-btn {
@@ -411,8 +425,8 @@ video {
     transform: rotate(-45deg);
   }
   
-.video-controls-container .captions,
-.video-controls-container .settings {
+.bottom-controls-container .captions,
+.bottom-controls-container .settings {
   position: absolute;
   right: 25px;
   bottom: 62px;
@@ -427,13 +441,13 @@ video {
   border-radius: 5px;
 }
 
-.video-controls-container .captions.active,
-.video-controls-container .settings.active {
+.bottom-controls-container .captions.active,
+.bottom-controls-container .settings.active {
   display: block;
 }
 
-.video-controls-container .captions .caption span,
-.video-controls-container .settings > div > span {
+.bottom-controls-container .captions .caption span,
+.bottom-controls-container .settings div > span {
   font-size: 14px;
   font-weight: 300;
   padding: 15px 30px;
@@ -443,21 +457,21 @@ video {
   align-items: center;
   white-space: nowrap;
 }
-.video-controls-container .settings > div .icon {
+.bottom-controls-container .settings > div {
   font-size: 14px;
   margin: 0 5px;
   cursor: pointer;
 }
-.video-controls-container .settings > div ul li span {
+.bottom-controls-container .settings > div ul li span {
   pointer-events: none;
 }
 
-.video-controls-container .captions .caption ul,
-.video-controls-container .settings > div ul {
+.bottom-controls-container .captions .caption ul,
+.bottom-controls-container .settings > div ul {
   position: relative;
 }
-.video-controls-container .captions .caption ul li,
-.video-controls-container .settings > div ul li {
+.bottom-controls-container .captions .caption ul li,
+.bottom-controls-container .settings > div ul li {
   position: relative;
   width: 100%;
   cursor: pointer;
@@ -469,14 +483,14 @@ video {
   font-size: 14px;
 }
 
-.video-controls-container .captions .caption ul li:hover,
-.video-controls-container .settings > div ul li:hover {
+.bottom-controls-container .captions .caption ul li:hover,
+.bottom-controls-container .settings > div ul li:hover {
   background: rgba(28, 28, 28, 0.9);
 }
 
-.video-controls-container .captions .caption ul li.active::before,
-.video-controls-container .settings > div ul li.active::before {
-  content: "\e876";
+.bottom-controls-container .captions .caption ul li.active::before,
+.bottom-controls-container .settings > div ul li.active::before {
+  content: "";
   font-family: "Material Icons";
   position: absolute;
   left: 7px;
@@ -486,33 +500,21 @@ video {
   font-size: 18px;
 }
   
-.video-controls-container .captions::-webkit-scrollbar,
-.video-controls-container .settings::-webkit-scrollbar {
+.bottom-controls-container .captions::-webkit-scrollbar,
+.bottom-controls-container .settings::-webkit-scrollbar {
   width: 8px;
   background: transparent;
 }
 
-.video-controls-container .captions::-webkit-scrollbar-thumb,
-.video-controls-container .settings::-webkit-scrollbar-thumb {
+.bottom-controls-container .captions::-webkit-scrollbar-thumb,
+.bottom-controls-container .settings::-webkit-scrollbar-thumb {
   height: 20px;
   border: 2px solid transparent;
   background: rgba(83, 83, 83, 0.9);
   border-radius: 20px;
 }
 
-
-
-
-/*If video is in theater mode, hide theater button*/
-.video-container.theater .theater {
-    display: none;
-}
-
-/*If video is NOT in theater mode, hide original button*/
-.video-container:not(.theater) .original {
-    display: none;
-}
-
+/*Fullscreen*/
 /*If video is fullscreen, hide fullscreen button*/
 .video-container.fullscreen .open {
     display: none;

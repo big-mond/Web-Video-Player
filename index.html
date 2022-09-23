@@ -36,34 +36,31 @@
     <div class="video-container paused" data-volume-level="high">
     <!--Scroll Preview-->
       <img class="thumbnail-img">
-    <!--Video Controls-->
-      <div class="video-controls-container">
       
-      <!--Top Button Controls-->
-        <div class="controls-top">
-        <!--Closed Caption/White-->
-          <button class="captions-btn">
-            <span class="material-icons-outlined on">closed_caption</span>
-            <span class="material-icons-outlined off">closed_caption_disabled</span>
-          </button>
-          
-        <!--Theater Button/WhiteOutline-->
-          <button class="theater-btn">
-            <span class="material-icons theater">crop_5_4</span>
-            <span class="material-icons original">crop_16_9</span>
-          </button>
-          
-        <!--Mini Player/WhiteOutline-->
-          <button class="miniplayer-btn">
-            <span class="material-icons in">picture_in_picture</span>
-            <span class="material-icons out">picture_in_picture_alt</span>
-          </button>
-        </div>
+    <!--Top Button Controls-->
+      <div class="top-controls-container">
+      <!--Closed Caption/White-->
+        <button class="captions-btn">
+          <span class="material-icons-outlined on">closed_caption</span>
+          <span class="material-icons-outlined off">closed_caption_disabled</span>
+        </button>
+        
+      <!--Theater Button/WhiteOutline-->
+        <button class="theater-btn">
+          <span class="material-icons theater">crop_5_4</span>
+          <span class="material-icons original">crop_16_9</span>
+        </button>
+        
+      <!--Mini Player/WhiteOutline-->
+        <button class="miniplayer-btn">
+          <span class="material-icons in">picture_in_picture</span>
+          <span class="material-icons out">picture_in_picture_alt</span>
+        </button>
+      </div>
+    
+    <!--Bottom Button Controls-->
+      <div class="bottom-controls-container">
       
-      
-      
-      <!--Button Controls-->
-        <div class="controls-bottom">
         <!--Replay-->
           <button class="replay-btn">
             <span class="material-icons">replay_5</span>
@@ -102,7 +99,7 @@
               <span class="material-icons volume-down">volume_down</span>
               <span class="material-icons volume-off">volume_off</span>
             </button>
-            <input class="volume-slider" type="range" min="0" max="1" step="any" value="1"></input>
+            <input class="volume-slider" type="range" min="0" max="1" step="any" value="1">
           </div>
           
         
@@ -129,73 +126,71 @@
           </button>
 
           
-          <div class="settings">
-            <div data-label="settingsMenu">
-              <ul>
-                <li data-label="speed">
-                  <span> Speed </span>
-                  <span class="material-icons icon">
-                    navigate_next
-                  </span>
-                </li>
-                
-                <li data-label="quality">
-                  <span> Quality </span>
-                 <span class="material-icons icon">
+        <div class="settings">
+          <div data-label="settingsMenu">
+            <ul>
+              <li data-label="speed">
+                <span> Speed </span>
+                <span class="material-icons">
                   navigate_next
                 </span>
-                </li>
-              </ul>
-            </div>
-            
-            <div class="playback" data-label="speed" hidden>
-              <span>
-                <i class="material-icons icon back_arrow"  data-label="settingsMenu">
-                  arrow_back
-                </i>
-                <span>Playback Speed </span>
-              </span>
+              </li>
               
-              <ul>
-                <li data-speed="0.25">0.25</li>
-    
-                <li data-speed="0.5">0.5</li>
-    
-                <li data-speed="0.75">0.75</li>
-    
-                <li data-speed="1" class="active">Normal</li>
-    
-                <li data-speed="1.25">1.25</li>
-    
-                <li data-speed="1.5">1.5</li>
-    
-                <li data-speed="1.75">1.75</li>
-    
-                <li data-speed="2">2</li>
-              </ul>
-            </div>
-            
-            <div data-label="quality" hidden>
-              <span>
-                <i class="material-icons icon back_arrow" data-label="settingsMenu">
-                  arrow_back
-                </i>
-                <span>Playback Quality </span>
+              <li data-label="quality">
+                <span> Quality </span>
+               <span class="material-icons">
+                navigate_next
               </span>
-              <ul>
-                <li data-quality="auto" class="active">auto</li>
-              </ul>
-            </div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="playback" data-label="speed" hidden>
+            <span>
+              <i class="material-icons back_arrow"  data-label="settingsMenu">
+                arrow_back
+              </i>
+              <span>Playback Speed </span>
+            </span>
+            
+            <ul>
+              <li data-speed="0.25">0.25</li>
+  
+              <li data-speed="0.5">0.5</li>
+  
+              <li data-speed="0.75">0.75</li>
+  
+              <li data-speed="1" class="active">Normal</li>
+  
+              <li data-speed="1.25">1.25</li>
+  
+              <li data-speed="1.5">1.5</li>
+  
+              <li data-speed="1.75">1.75</li>
+  
+              <li data-speed="2">2</li>
+            </ul>
+          </div>
+          
+          <div data-label="quality" hidden>
+            <span>
+              <i class="material-icons back_arrow" data-label="settingsMenu">
+                arrow_back
+              </i>
+              <span>Playback Quality </span>
+            </span>
+            <ul>
+              <li data-quality="auto" class="active">auto</li>
+            </ul>
           </div>
         </div>
-        
       </div>
-
+  
       
     
     <!--Video Source-->
       <video src="assets/video.mp4">
-        <track kind="captions" srclang="en" src="">
+        <track kind="captions" srclang="en" src="test.vtt">
       </video>
     </div>
   </body>

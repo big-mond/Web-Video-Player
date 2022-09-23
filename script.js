@@ -346,7 +346,7 @@ playback.forEach((event) => {
   event.addEventListener("click", () => {
     removeActiveClasses(playback);
     event.classList.add("active");
-    let speed = event.getAttribute("data-speed");
+    let speed = event.getAttribute("speed");
     video.playbackRate = speed;
   })
 })
@@ -372,14 +372,10 @@ function changeCaption(Label) {
   }
 }
 
-const settingDivs = document.querySelectorAll(".settings > div");
-const settingsBack = document.querySelectorAll(
-  ".settings > div .back_arrow"
-)
-const quality_ul = document.querySelector(
-  ".settings > [data-label='quality'] ul"
-)
-const qualities = document.querySelectorAll("source[size]");
+const settingDivs = document.querySelectorAll(".settings > div")
+const settingsBack = document.querySelectorAll(".settings > div .back_arrow")
+const quality_ul = document.querySelector(".settings > [data-label='quality'] ul")
+const qualities = document.querySelectorAll("source[size]")
 
 qualities.forEach((event) => {
   let quality_html = `<li data-quality="${event.getAttribute(
@@ -388,9 +384,8 @@ qualities.forEach((event) => {
   quality_ul.insertAdjacentHTML("afterbegin", quality_html);
 })
 
-const quality_li = document.querySelectorAll(
-  ".settings > [data-label='quality'] ul > li"
-)
+const quality_li = document.querySelectorAll(".settings > [data-label='quality'] ul > li")
+
 quality_li.forEach((event) => {
   event.addEventListener("click", (e) => {
     let quality = event.getAttribute("data-quality");
