@@ -13,7 +13,7 @@ body {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
+    font-size: 1.5rem;  /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -60,7 +60,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  min-width: 200px;
+  min-width: 12.5rem;
   max-width: 90%;
   justify-content: center;
   margin-inline: auto;
@@ -71,7 +71,7 @@ video {
   width: 100%;
 }
 
-/*Controls Container*/
+/*Controls Containers*/
 .top-controls-container, 
 .bottom-controls-container {
   position: absolute;
@@ -89,8 +89,8 @@ video {
 
 /*Top Controls Container*/
 .top-controls-container {
-  top: 0px;
-  right: 0px;
+  top: 0rem;
+  right: 0rem;
   justify-content: end;
   font-size: 1.1rem;
 }
@@ -148,8 +148,8 @@ video {
     border: none;
     color: inherit;
     padding: 0;
-    height: 24px;
-    width: 24px;
+    height: 1.5rem;
+    width: 1.5rem;
     font-size: 1.1rem;
     cursor:pointer;
     /*Different opacity when hovering*/
@@ -194,7 +194,7 @@ video {
 
 /*Wide Playrate button*/
 .bottom-controls-container .controls button.wide {
-  width: 50px;
+  width: 3rem;
 }
 
 /*If video is in miniplayer mode, hide out button*/
@@ -254,7 +254,7 @@ video {
   content: "";
   position: absolute;
   /*Starts to the left*/
-  left: 0;
+  left: .2rem;
   /*Fills full size of section*/
   top: 0;
   bottom: 0;
@@ -313,7 +313,7 @@ video {
   /*Determines position. Preview position x 100%*/
   left: calc(var(--preview-position) * 100%);
   border-radius: .25rem;
-  border: 2px solid white;
+  border: .125rem solid white;
   display: none;
 }
 
@@ -396,28 +396,28 @@ video {
 .volume-slider {
     position: absolute;
     /*Hide by default*/
-    width: 0px;
-    height: 0px;
+    width: 0rem;
+    height: 0rem;
     /*Fade in from left to right*/
     transform-origin: center;
     /*From zero vertically*/
     transform: scaleY(0) rotate(-90deg);
   }
   
-  .volume-container:hover .volume-slider,
-  /*tab controls*/ 
-  .volume-slider:focus-within {
-    /*Height and Width are reversed*/
-    width: 50px;
-    height: 100px;
-    transform: scaleY(1) rotate(-90deg);
-    transition: width 50ms ease-in-out, transform 50ms ease-in-out;
-  }
+.volume-container:hover .volume-slider,
+/*tab controls*/ 
+.volume-slider:focus-within {
+  /*Height and Width are reversed*/
+  width: 4rem;
+  height: 6.75rem;
+  transform: scaleY(1) rotate(-90deg);
+  transition: width 50ms ease-in-out, transform 50ms ease-in-out;
+}
 
 
 /*Settings Button*/
 .settings-btn {
-    font-size: 24px;
+    font-size: 1.5rem;
     transition: 0.3s;
   }
   
