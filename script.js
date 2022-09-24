@@ -1,4 +1,5 @@
 const playPauseBtn = document.querySelector(".play-pause-btn")
+const autoplay = document.querySelector(".autoplay")
 const replayBtn = document.querySelector(".replay-btn")
 const forwardBtn = document.querySelector(".forward-btn")
 const muteBtn = document.querySelector(".mute-btn")
@@ -132,6 +133,7 @@ function handleTimelineUpdate(e) {
     timelineContainer.style.setProperty("--progress-position", percent)
   }
 }
+
 
 
 

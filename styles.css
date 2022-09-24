@@ -12,7 +12,7 @@
   font-size: 21px;
   width: 100%;
   text-align: center;
-  color: black; 
+  color: rgb(255, 255, 255); 
 }
 
 
@@ -61,8 +61,6 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 51px);
-  width: 100%;
 }
 
 
@@ -78,6 +76,29 @@ section {
   margin-inline: auto;
   background-color: black;
   overflow: hidden;
+}
+
+.video-container .loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 4px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  z-index: 1;
+  animation: animate 0.6s linear infinite;
+  display: none;
+}
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 video {
@@ -110,6 +131,7 @@ video {
 .top-controls-container {
   top: 0rem;
   right: 0rem;
+  left: 0;
   justify-content: end;
   font-size: 1.1rem;
 }
@@ -131,7 +153,7 @@ video {
   bottom: 0;
   right: 0;
   /*Fade up, black to transparent*/
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.384), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.10), transparent);
   width: 100%;
   /*No matter how high cover same percent of area*/
   aspect-ratio: 16 / 1;
@@ -143,7 +165,9 @@ video {
 
 /*Top Controls Transparent Background*/
 .top-controls-container::before {
-  background: transparent;
+    /*Fade up, black to transparent*/
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.10), transparent);
+    width: 100%;
   top: 0;
 }
 
@@ -225,6 +249,41 @@ video {
 /*Bottom Controls Visible on Hover*/
 .video-container .bottom-controls-container button:hover {
     opacity: 1;
+}
+
+
+.top-button-controls .autoplay {
+  width: 30px;
+  height: 10px;
+  border-radius: 20px;
+  position: relative;
+  margin-right: 8px !important;
+  background: #b6b6b6;
+}
+
+.top-button-controls .autoplay::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  font-size: 14px;
+  background: #727272;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  font-family: "Material Icons";
+}
+
+.top-button-controls .autoplay.active::before {
+  content: "\e037";
+  left: 15px;
+  font-family: "Material Icons";
 }
 
 
@@ -493,7 +552,7 @@ video {
   }
   
 .settings-btn.active {
-    transform: rotate(-45deg);
+    transform: rotate(90deg);
   }
   
 .bottom-controls-container .captions,

@@ -34,12 +34,22 @@
     <section>
   <!--Video Container-->
     <div class="video-container paused" data-volume-level="high">
+      <div class="loader"></div>
+      <!--Video Source-->
+      <video preload="metadata">
+        <source src="assets/video.mp4" type="video/mp4">
+        <track kind="captions" srclang="en" src="test.vtt">
+      </video>
     <!--Scroll Preview-->
       <img class="thumbnail-img">
       
     <!--Top Button Controls-->
       <div class="top-controls-container">
-      <!--Closed Caption/White-->
+        <!--<button class="autoplay">
+          <span class="material-icons"></span>
+        </button>-->
+      
+        <!--Closed Caption/White-->
         <button class="captions-btn tooltip" aria-label="Captions (c)"> 
           <span class="tooltip-text">Captions (c)</span>
           <span class="material-icons-outlined on">closed_caption</span>
@@ -112,15 +122,17 @@
         
           
         <!--Playback Speed-->
-          <button class="speed-btn wide">
-            1x
+          <button class="speed-btn wide tooltip" aria-label="Play Speed">
+            <span class="tooltip-text">Play Speed</span>
+            <span>1x</span>
           </button>
           
         
         
         <!--Settings/SolidWhile--> 
-          <button class="settings-btn">
-            <span class="material-icons settings-icon">settings</span>
+          <button class="tooltip" aria-label="Settings">
+            <span class="tooltip-text">Settings</span>
+            <span class="settings-btn material-icons">settings</span>
           </button>
 
         
@@ -193,13 +205,6 @@
           </div>
         </div>
       </div>
-  
-      
-    
-    <!--Video Source-->
-      <video src="assets/video.mp4">
-        <track kind="captions" srclang="en" src="test.vtt">
-      </video>
     </div>
   </section>
   </body>
