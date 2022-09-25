@@ -197,7 +197,7 @@ video.addEventListener("volumechange", () => {
   if (video.muted || video.volume === 0) {
     volumeSlider.value = 0
     volumeLevel = "muted"
-  } else if (video.volume >= .5) {
+  } else if (video.volume >= .6) {
     volumeLevel = "high"
   } else {
     volumeLevel = "low"
@@ -207,6 +207,13 @@ video.addEventListener("volumechange", () => {
 })
 
 
+video.addEventListener("volumechange", () => {
+  volumeSlider.value = video.volume
+  
+  //Bar will move with video progress
+  const percent = volumeSlider.value / 1
+  volumeSlider.style.setProperty("--volume-level", percent)
+})
 
 //Current Time
 video.addEventListener("timeupdate", () => {
@@ -324,7 +331,7 @@ settingsBtn.addEventListener("click", () => {
 
 // Open caption
 captionsBtn.addEventListener("click", () => {
-  captionsMenu.classList.toggle("active");
+ // captionsMenu.classList.toggle("active");
   captionsBtn.classList.toggle("active");
   if (
     settingsBtn.classList.contains("active") ||
