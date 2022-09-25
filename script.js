@@ -8,6 +8,8 @@ const totalTime = document.querySelector(".total-time")
 const previewImg = document.querySelector(".preview-img")
 const thumbnailImg = document.querySelector(".thumbnail-img")
 const captionsBtn = document.querySelector(".captions-btn")
+const captionsMenu = document.querySelector(".captionsMenu")
+const caption_labels = document.querySelector(".captionsMenu ul")
 const speedBtn = document.querySelector(".speed-btn")
 const miniPlayerBtn = document.querySelector(".miniplayer-btn")
 const settingsBtn = document.querySelector(".settings-btn")
@@ -209,7 +211,7 @@ video.addEventListener("volumechange", () => {
 //Current Time
 video.addEventListener("timeupdate", () => {
   currentTime.textContent = formatDuration(video.currentTime)
-  //Red bar will move with video progress
+  //Bar will move with video progress
   const percent = video.currentTime / video.duration
   timelineContainer.style.setProperty("--progress-position", percent)
 })
@@ -304,6 +306,8 @@ document.addEventListener("fullscreenchange", () => {
 })
 
 
+
+
 //Settings Button and Menu
 settingsBtn.addEventListener("click", () => {
   settings.classList.toggle("active");
@@ -311,16 +315,16 @@ settingsBtn.addEventListener("click", () => {
   //If captions on turn them off
   if (
     captionsBtn.classList.contains("active") ||
-    captions.classList.contains("active")
+    captionsMenu.classList.contains("active")
   ) {
-    captions.classList.remove("active");
+    captionsMenu.classList.remove("active");
     captionsBtn.classList.remove("active");
   }
 })
 
-// Open captions
+// Open caption
 captionsBtn.addEventListener("click", () => {
-  captions.classList.toggle("active");
+  captionsMenu.classList.toggle("active");
   captionsBtn.classList.toggle("active");
   if (
     settingsBtn.classList.contains("active") ||
@@ -329,53 +333,37 @@ captionsBtn.addEventListener("click", () => {
     settings.classList.remove("active");
     settingsBtn.classList.remove("active");
   }
-})
+});
 
-//Playback Speed
+//Playback Speed Button
 speedBtn.addEventListener("click", changePlaybackSpeed)
 
 function changePlaybackSpeed() {
-  let newPlaybackRate = video.playbackRate + 0.25
-  if (newPlaybackRate > 2) newPlaybackRate = 0.25
-  video.playbackRate = newPlaybackRate
-  speedBtn.textContent = `${newPlaybackRate}x`
+  let speed = video.playbackRate + 0.25
+  if (speed > 2) speed = 0.25
+  video.playbackRate = speed
+  /*Play Speed Label*/
+  speedBtn.textContent = `${speed}x`
 }
 
-
-// Playback Rate
-
+//Playback Speed in Settings
 playback.forEach((event) => {
-  event.addEventListener("click", () => {
+  event.addEventListener("input", () => {
     removeActiveClasses(playback);
     event.classList.add("active");
-    let speed = event.getAttribute("speed");
-    video.playbackRate = speed;
+    speed = event.getAttribute("data-speed");
+    video.playbackRate = speed
+    /*Play Speed Label*/
+    speedBtn.textContent = `${speed}x`
   })
 })
 
-captions.forEach((event) => {
-  event.addEventListener("click", () => {
-    removeActiveClasses(caption);
-    event.classList.add("active");
-    changeCaption(event);
-    caption_text.innerHTML = "";
-  })
-})
 
-let track = video.textTracks;
 
-function changeCaption(Label) {
-  let trackLabel = Label.getAttribute("data-track");
-  for (let i = 0; i < track.length; i++) {
-    track[i].mode = "disabled";
-    if (track[i].label == trackLabel) {
-      track[i].mode = "showing";
-    }
-  }
-}
+
 
 const settingDivs = document.querySelectorAll(".settings > div")
-const settingsBack = document.querySelectorAll(".settings > div .back_arrow")
+const settingsBack = document.querySelectorAll(".settings > div .arrow_back")
 const quality_ul = document.querySelector(".settings > [data-label='quality'] ul")
 const qualities = document.querySelectorAll("source[size]")
 
@@ -437,18 +425,6 @@ function removeActiveClasses(e) {
   });
 }
 
-let caption_text = document.querySelector(".caption_text");
-for (let i = 0; i < track.length; i++) {
-  track[i].addEventListener("cuechange", () => {
-    if (track[i].mode === "showing") {
-      if (track[i].activeCues[0]) {
-        let span = `<span><mark>${track[i].activeCues[0].text}</mark></span>`;
-        caption_text.innerHTML = span;
-      } else {
-        caption_text.innerHTML = "";
-      }
-    }
-  });
-}
+
 
 

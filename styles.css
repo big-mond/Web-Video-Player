@@ -54,7 +54,7 @@
 
 body {
   margin: 0;
-  background-color: #002333;
+  background-color: rgb(9, 12, 27);
 }
 
 section {
@@ -76,6 +76,7 @@ section {
   margin-inline: auto;
   background-color: black;
   overflow: hidden;
+  
 }
 
 .video-container .loader {
@@ -103,9 +104,10 @@ section {
 
 video {
   position: relative;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: auto;
   outline: none;
+  object-fit: contain;
 }
 
 
@@ -554,71 +556,85 @@ video {
 .settings-btn.active {
     transform: rotate(90deg);
   }
-  
-.bottom-controls-container .captions,
+
+/*Settings MainMenu*/
+.bottom-controls-container .captionsMenu,
 .bottom-controls-container .settings {
   position: absolute;
-  right: 25px;
-  bottom: 62px;
-  background: rgb(28 28 28 / 90%);
-  width: 200px;
-  max-height: 250px;
-  height: auto;
+  right: 2.5%;
+  bottom: 100%;
+  background: rgba(28, 28, 28, 0.219);
+  max-width: 126px;
+  max-height: 500%;
   color: #fff;
   overflow-y: auto;
   z-index: 20;
   display: none;
   border-radius: 5px;
+  list-style-type:none;
 }
 
-.bottom-controls-container .captions.active,
+.bottom-controls-container .captionsMenu.active,
 .bottom-controls-container .settings.active {
   display: block;
 }
 
-.bottom-controls-container .captions .caption span,
+/*Settings List Menu Title*/
+.bottom-controls-container .captionsMenu .caption span,
 .bottom-controls-container .settings div > span {
   font-size: 14px;
   font-weight: 300;
-  padding: 15px 30px;
+  padding: .25rem .25rem;
   border-bottom: 1px solid rgb(83, 83, 83);
+  width: inherit;
   display: flex;
   justify-content: space-between;
   align-items: center;
   white-space: nowrap;
+  
 }
-.bottom-controls-container .settings > div {
+/*Settings List Menu*/
+.bottom-controls-container .settings > div ul{
+  height: inherit;
+  width: inherit;
   font-size: 14px;
-  margin: 0 5px;
+  padding: 5px;
+  gap: .75rem;
   cursor: pointer;
+  list-style-type:none;
+  align-items: center;
 }
 .bottom-controls-container .settings > div ul li span {
   pointer-events: none;
 }
 
-.bottom-controls-container .captions .caption ul,
+.bottom-controls-container .captionsMenu .caption ul,
 .bottom-controls-container .settings > div ul {
   position: relative;
 }
-.bottom-controls-container .captions .caption ul li,
-.bottom-controls-container .settings > div ul li {
+
+/*Settings List Menu Items*/
+.bottom-controls-container .captionsMenu .caption ul li,
+.bottom-controls-container .settings > div li {
+  display: flex;
   position: relative;
-  width: 100%;
   cursor: pointer;
   text-align: left;
-  padding: 12px 33px;
-  display: flex;
-  justify-content: space-between;
+  padding: 12px;
+  gap: .75rem;
   align-items: center;
   font-size: 14px;
+  list-style-type:none;
+  top:50%;
 }
 
-.bottom-controls-container .captions .caption ul li:hover,
+/*Settings Hover Color*/
+.bottom-controls-container .captionsMenu .caption ul li:hover,
 .bottom-controls-container .settings > div ul li:hover {
-  background: rgba(28, 28, 28, 0.9);
+  background: rgba(28, 28, 28, 0.192);
 }
 
-.bottom-controls-container .captions .caption ul li.active::before,
+.bottom-controls-container .captionsMenu .caption ul li.active::before,
 .bottom-controls-container .settings > div ul li.active::before {
   content: "";
   font-family: "Material Icons";
@@ -628,19 +644,21 @@ video {
   transform: translateY(-50%);
   padding-right: 10px;
   font-size: 18px;
+  list-style-type:none;
 }
   
-.bottom-controls-container .captions::-webkit-scrollbar,
+/*Settings Scrollbar*/
+.bottom-controls-container .captionsMenu::-webkit-scrollbar,
 .bottom-controls-container .settings::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
+  height: 5px;
   background: transparent;
 }
 
-.bottom-controls-container .captions::-webkit-scrollbar-thumb,
+/*Settings Scroller*/
+.bottom-controls-container .captionsMenu::-webkit-scrollbar-thumb,
 .bottom-controls-container .settings::-webkit-scrollbar-thumb {
-  height: 20px;
-  border: 2px solid transparent;
-  background: rgba(83, 83, 83, 0.9);
+  background: rgba(83, 83, 83, 0.671);
   border-radius: 20px;
 }
 
