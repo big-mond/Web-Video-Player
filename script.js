@@ -238,8 +238,8 @@ video.addEventListener("volumechange", () => {
   videoContainer.dataset.volumeLevel = volumeLevel
 
   //Inside volume bar will move with volume level
-  const percent = volumeSlider.value / 1
-  volumeSlider.style.setProperty("--volume-level", percent)
+  const value = volumeSlider.value
+  volumeSlider.style.setProperty("--volume-level", value)
 })
 
 

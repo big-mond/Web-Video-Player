@@ -610,7 +610,7 @@ video {
   bottom: 100%;
   background: rgba(28, 28, 28, 0.219);
   max-width: 126px;
-  max-height: 500%;
+  max-height: 550%;
   color: #fff;
   overflow-y: auto;
   z-index: 20;
@@ -625,6 +625,7 @@ video {
 
 /*Settings List Menu Title*/
 .bottom-controls-container .settings div > span {
+  position: sticky;
   font-size: 14px;
   font-weight: 300;
   padding: .25rem .25rem;
