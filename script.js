@@ -175,46 +175,6 @@ forwardBtn.addEventListener("click", () => {
 })
 
 
-
-//Volume toggle
-muteBtn.addEventListener("click", toggleMute)
-
-//Set volume slider to corresponding value
-volumeSlider.addEventListener("input", e => {
-  video.volume = e.target.value
-  video.muted = e.target.value === 0 
-})
-
-//Mute
-function toggleMute() {
-  video.muted = !video.muted
-}
-
-//Change volume button according to actual volume
-video.addEventListener("volumechange", () => {
-  volumeSlider.value = video.volume
-  let volumeLevel
-  if (video.muted || video.volume === 0) {
-    volumeSlider.value = 0
-    volumeLevel = "muted"
-  } else if (video.volume >= .6) {
-    volumeLevel = "high"
-  } else {
-    volumeLevel = "low"
-  }
-  
-  videoContainer.dataset.volumeLevel = volumeLevel
-})
-
-
-video.addEventListener("volumechange", () => {
-  volumeSlider.value = video.volume
-  
-  //Bar will move with video progress
-  const percent = volumeSlider.value / 1
-  volumeSlider.style.setProperty("--volume-level", percent)
-})
-
 //Current Time
 video.addEventListener("timeupdate", () => {
   currentTime.textContent = formatDuration(video.currentTime)
@@ -248,6 +208,42 @@ function formatDuration(time) {
 }
 
 
+//Volume toggle
+muteBtn.addEventListener("click", toggleMute)
+
+//Set volume slider to corresponding value
+volumeSlider.addEventListener("input", e => {
+  video.volume = e.target.value
+  video.muted = e.target.value === 0 
+})
+
+//Mute
+function toggleMute() {
+  video.muted = !video.muted
+}
+
+//Change volume button according to actual volume
+video.addEventListener("volumechange", () => {
+  volumeSlider.value = video.volume
+  let volumeLevel
+  if (video.muted || video.volume === 0) {
+    volumeSlider.value = 0
+    volumeLevel = "muted"
+  } else if (video.volume >= .6) {
+    volumeLevel = "high"
+  } else {
+    volumeLevel = "low"
+  }
+  //Volume button will correlate with volume level
+  videoContainer.dataset.volumeLevel = volumeLevel
+
+  //Inside volume bar will move with volume level
+  const percent = volumeSlider.value / 1
+  volumeSlider.style.setProperty("--volume-level", percent)
+})
+
+
+
 
 //Captions
 const captions = video.textTracks[0]
@@ -261,11 +257,6 @@ function toggleCaptions() {
   captions.mode = isHidden ? "showing" : "hidden"
   videoContainer.classList.toggle("captions", isHidden)
 }
-
-
-
-
-
 
 
 //View Modes
@@ -355,7 +346,7 @@ function changePlaybackSpeed() {
 
 //Playback Speed in Settings
 playback.forEach((event) => {
-  event.addEventListener("click", () => {
+  event.addEventListener("input", () => {
     removeActiveClasses(playback);
     event.classList.add("active");
     speed = event.getAttribute("data-speed");
@@ -365,11 +356,28 @@ playback.forEach((event) => {
   })
 })
 
+const subtitles = document.querySelectorAll(".captionsMenu ul li");
 
+subtitles.forEach((event) => {
+  event.addEventListener("click", () => {
+    removeActiveClasses(subtitles);
+    event.classList.add("active");
+    changeCaption(event);
+    caption_text.innerHTML = "";
+  });
+});
 
+function changeCaption(label) {
+  let captionsLabel = label.getAttribute("data-track");
+  for (let i = 0; i < captions.length; i++) {
+    captions[i].mode = "hidden";
+    if (captions[i].label == captionsLabel) {
+      captions[i].mode = "showing";
+    }
+  }
+}
 
-
-const settingDivs = document.querySelectorAll(".settings > div")
+const settingsDivs = document.querySelectorAll(".settings > div")
 const settingsBack = document.querySelectorAll(".settings > div .arrow_back")
 const quality_ul = document.querySelector(".settings > [data-label='quality'] ul")
 const qualities = document.querySelectorAll("source[size]")
@@ -402,12 +410,12 @@ quality_li.forEach((event) => {
 
 settingsBack.forEach((event) => {
   event.addEventListener("click", (e) => {
-    let setting_label = e.target.getAttribute("data-label");
-    for (let i = 0; i < settingDivs.length; i++) {
-      if (settingDivs[i].getAttribute("data-label") == setting_label) {
-        settingDivs[i].removeAttribute("hidden");
+    let settingsLabel = e.target.getAttribute("data-label");
+    for (let i = 0; i < settingsDivs.length; i++) {
+      if (settingsDivs[i].getAttribute("data-label") == settingsLabel) {
+        settingsDivs[i].removeAttribute("hidden");
       } else {
-        settingDivs[i].setAttribute("hidden", "");
+        settingsDivs[i].setAttribute("hidden", "");
       }
     }
   });
@@ -415,12 +423,12 @@ settingsBack.forEach((event) => {
 
 settingsMenu.forEach((event) => {
   event.addEventListener("click", (e) => {
-    let setting_label = e.target.getAttribute("data-label");
-    for (let i = 0; i < settingDivs.length; i++) {
-      if (settingDivs[i].getAttribute("data-label") == setting_label) {
-        settingDivs[i].removeAttribute("hidden");
+    let settingsLabel = e.target.getAttribute("data-label");
+    for (let i = 0; i < settingsDivs.length; i++) {
+      if (settingsDivs[i].getAttribute("data-label") == settingsLabel) {
+        settingsDivs[i].removeAttribute("hidden");
       } else {
-        settingDivs[i].setAttribute("hidden", "");
+        settingsDivs[i].setAttribute("hidden", "");
       }
     }
   });

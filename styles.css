@@ -587,7 +587,6 @@ video {
   height: 6px;/*width*/
   bottom: 190%;
   border-radius: 20rem;
-  visibility: hidden delay 10s;
   /*Turn 90deg vertically*/
   transform: scaleY(1) rotate(-90deg);
   transition: width 300ms ease-in-out, transform 300ms ease-in-out;
@@ -604,8 +603,7 @@ video {
     transform: rotate(90deg);
   }
 
-/*Settings MainMenu*/
-.bottom-controls-container .captionsMenu,
+/*Settings Main View*/
 .bottom-controls-container .settings {
   position: absolute;
   right: 2.5%;
@@ -621,13 +619,11 @@ video {
   list-style-type:none;
 }
 
-.bottom-controls-container .captionsMenu.active,
 .bottom-controls-container .settings.active {
   display: block;
 }
 
 /*Settings List Menu Title*/
-.bottom-controls-container .captionsMenu .caption span,
 .bottom-controls-container .settings div > span {
   font-size: 14px;
   font-weight: 300;
@@ -647,7 +643,6 @@ video {
   font-size: 14px;
   padding: 5px;
   gap: .75rem;
-  cursor: pointer;
   list-style-type:none;
   align-items: center;
 }
@@ -671,7 +666,7 @@ video {
   gap: .75rem;
   align-items: center;
   font-size: 14px;
-  list-style-type:none;
+  list-style-type: none;
   top:50%;
 }
 
@@ -692,6 +687,7 @@ video {
   padding-right: 10px;
   font-size: 18px;
   list-style-type:none;
+  align-items: center;
 }
   
 /*Settings Scrollbar*/

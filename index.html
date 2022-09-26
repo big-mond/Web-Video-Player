@@ -151,18 +151,30 @@
             <ul>
               <li data-label="speed">
                 <span> Speed </span>
-                <span class="material-icons">
-                  <!--Find a way to add selector here-->
-                  <span></span>
-                  navigate_next
-                </span>
+                <div>
+                  <button class="material-icons" data-label="speed">
+                    <!--Find a way to add selector here-->
+                    navigate_next
+                  </button>
+                </div>
               </li>
               
               <li data-label="quality">
-                <span> Quality </span>
-               <span class="material-icons">
-                navigate_next
-              </span>
+                  <span> Quality </span>
+                  <div>
+                    <button class="material-icons" data-label="quality">
+                     navigate_next
+                    </button>
+                  </div>
+              </li>
+              
+              <li data-label="captions">
+                  <span>Captions</span>
+                  <div>
+                    <button class="material-icons" data-label="captions">
+                     navigate_next
+                    </button>
+                  </div>
               </li>
             </ul>
           </div>
@@ -251,14 +263,20 @@
               </li>
             </ul>
           </div>
-        </div>
 
-        <div class="captionsMenu">
-          <div class="caption">
-            <span>Select Subtitle</span>
-            <ul>
-              
-            </ul>
+          <div class="captionsMenu" data-label="captions" hidden>
+            <div class="subtitles">
+              <span>
+                <button 
+                class="material-icons arrow_back" 
+                data-label="settingsMenu">arrow_back
+              </button>
+              <span>Select Subtitle</span>
+              </span>
+              <ul>
+                
+              </ul>
+            </div>
           </div>
         </div>
       </div>
