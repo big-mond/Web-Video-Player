@@ -22,10 +22,9 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
-  <br/>
   
   <body>
-    <div class="playerpage">
+    <div class="video-player-page">
     <!--Video Header-->
       <div class="video-header">
         <div class="video-title">
@@ -135,7 +134,139 @@
               <span class="settings-btn material-icons">settings</span>
             </button>
 
-          
+            <div class="settings">
+              <div data-label="settingsMenu">
+                <ul>
+                  <li data-label="speed">
+                    <span> Speed </span>
+                    <div>
+                      <button class="material-icons" data-label="speed">
+                        <!--Find a way to add selector here-->
+                        navigate_next
+                      </button>
+                    </div>
+                  </li>
+                  
+                  <li data-label="quality">
+                      <span> Quality </span>
+                      <div>
+                        <button class="material-icons" data-label="quality">
+                        navigate_next
+                        </button>
+                      </div>
+                  </li>
+                  
+                  <li data-label="captions">
+                      <span>Captions</span>
+                      <div>
+                        <button class="material-icons" data-label="captions">
+                        navigate_next
+                        </button>
+                      </div>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="playback" data-label="speed" hidden>
+                <span>
+                  <button class="material-icons arrow_back"  data-label="settingsMenu">
+                    arrow_back
+                  </button>
+                  <span>Playback Speed</span>
+                </span>
+                
+                <ul>
+                  <li data-speed="0.25">
+                    <button>
+                      <input type="radio" id="0.25" name="speed" value="0.25">
+                    </button>
+                    <label for="0.25">0.25</label>
+                  </li>
+                  
+                  <li data-speed="0.5">
+                    <button>
+                      <input type="radio" id="0.5" name="speed" value="0.5">
+                    </button>
+                    <label for="0.5">0.5</label>
+                  </li>
+                  
+                  <li data-speed="0.75">
+                    <button>
+                      <input type="radio" id="0.75" name="speed" value="0.75">
+                    </button>
+                    <label for="0.75">0.75</label>
+                  </li>
+                  
+                  <li data-speed="1" class="active">
+                    <button>
+                      <input type="radio" id="1" name="speed" value="normal" checked>
+                    </button>
+                    <label for="1">Normal</label>
+                  </li>
+                  
+                  <li data-speed="1.25">
+                    <button>
+                      <input type="radio" id="1.25" name="speed" value="1.25">
+                    </button>
+                    <label for="1.25">1.25</label>
+                  </li>
+                  
+                  <li data-speed="1.5">
+                  <button>
+                    <input type="radio" id="1.5" name="speed" value="1.5">
+                  </button>
+                  <label for="1.5">1.5</label>
+                  </li>
+                  
+                  <li data-speed="1.75">
+                  <button>
+                    <input type="radio" id="1.75" name="speed" value="1.75">
+                  </button>
+                  <label for="1.75">1.75</label>
+                  </li>
+      
+                  <li data-speed="2">
+                  <button>
+                    <input type="radio" id="2" name="speed" value="2">
+                  </button>
+                  <label for="2">2</label>
+                  </li>
+                </ul>
+              </div>
+              
+              <div data-label="quality" hidden>
+                <span>
+                  <button 
+                    class="material-icons arrow_back" 
+                    data-label="settingsMenu">arrow_back
+                  </button>
+                  <span>Playback Quality</span>
+                </span>
+                <ul>
+                  <li data-quality="auto" class="active">
+                    <button>
+                    <input type="radio" name="quality" value="auto" checked>
+                    </button>
+                    <span>auto</span>
+                  </li>
+                </ul>
+              </div>
+  
+              <div class="captionsMenu" data-label="captions" hidden>
+                <div class="subtitles">
+                  <span>
+                    <button 
+                    class="material-icons arrow_back" 
+                    data-label="settingsMenu">arrow_back
+                  </button>
+                  <span>Select Subtitle</span>
+                  </span>
+                  <ul>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
         
             
           <!--Fullscreen/SolidWhite-->
@@ -146,139 +277,7 @@
             </button>
 
             
-          <div class="settings">
-            <div data-label="settingsMenu">
-              <ul>
-                <li data-label="speed">
-                  <span> Speed </span>
-                  <div>
-                    <button class="material-icons" data-label="speed">
-                      <!--Find a way to add selector here-->
-                      navigate_next
-                    </button>
-                  </div>
-                </li>
-                
-                <li data-label="quality">
-                    <span> Quality </span>
-                    <div>
-                      <button class="material-icons" data-label="quality">
-                      navigate_next
-                      </button>
-                    </div>
-                </li>
-                
-                <li data-label="captions">
-                    <span>Captions</span>
-                    <div>
-                      <button class="material-icons" data-label="captions">
-                      navigate_next
-                      </button>
-                    </div>
-                </li>
-              </ul>
-            </div>
-            
-            <div class="playback" data-label="speed" hidden>
-              <span>
-                <button class="material-icons arrow_back"  data-label="settingsMenu">
-                  arrow_back
-                </button>
-                <span>Playback Speed</span>
-              </span>
-              
-              <ul>
-                <li data-speed="0.25">
-                  <button>
-                    <input type="radio" name="speed" value="0.25">
-                  </button>
-                  <span>0.25</span>
-                </li>
-                
-                <li data-speed="0.5">
-                  <button>
-                    <input type="radio" name="speed" value="0.5">
-                  </button>
-                  <span>0.5</span>
-                </li>
-                
-                <li data-speed="0.75">
-                  <button>
-                    <input type="radio" name="speed" value="0.75">
-                  </button>
-                  <span>0.75</span>
-                </li>
-                
-                <li data-speed="1" class="active">
-                  <button>
-                    <input type="radio" name="speed" value="normal" checked>
-                  </button>
-                  <span>Normal</span>
-                </li>
-                
-                <li data-speed="1.25">
-                  <button>
-                  <input type="radio" name="speed" value="1.25">
-                  </button>
-                  <span>1.25</span>
-                </li>
-                
-                <li data-speed="1.5">
-                <button>
-                  <input type="radio" name="speed" value="1.5">
-                </button>
-                <span>1.5</span>
-                </li>
-                
-                <li data-speed="1.75">
-                <button>
-                  <input type="radio" name="speed" value="1.75">
-                </button>
-                <span>1.75</span>
-                </li>
-    
-                <li data-speed="2">
-                <button>
-                  <input type="radio" name="speed" value="2">
-                </button>
-                <span>2</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div data-label="quality" hidden>
-              <span>
-                <button 
-                  class="material-icons arrow_back" 
-                  data-label="settingsMenu">arrow_back
-                </button>
-                <span>Playback Quality</span>
-              </span>
-              <ul>
-                <li data-quality="auto" class="active">
-                  <button>
-                  <input type="radio" name="quality" value="auto" checked>
-                  </button>
-                  <span>auto</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="captionsMenu" data-label="captions" hidden>
-              <div class="subtitles">
-                <span>
-                  <button 
-                  class="material-icons arrow_back" 
-                  data-label="settingsMenu">arrow_back
-                </button>
-                <span>Select Subtitle</span>
-                </span>
-                <ul>
-                  
-                </ul>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>

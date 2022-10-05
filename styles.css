@@ -37,33 +37,34 @@ body {
 }
 
 
-
-.playerpage{
+/*Video Player Page*/
+.video-player-page{
   position: relative;
   margin: 0 auto;
   font-size: 1.1rem;
   width: 1100px;
   margin-top: 60px;
-  transition: all .5s ease-in-out;
+  transition: all .3s ease-in-out;
+  transition-property: margin, height, width;
 }
 
 /*Video Header*/
 .video-header {
-  font-size: 21px;
-  width: 100%;
-  text-align: center;
-  color: rgb(255, 255, 255); 
-}
-
-
-/*Video Title*/
-.video-title {
   padding: 5px;
   text-align: left;
   padding-left: 10px;
   font-size: 1.5rem;
   margin-top: -30px;
   border-radius: 4px 4px 0 0;
+  width: 100%;
+  text-align: left;
+  color: rgb(255, 255, 255); 
+}
+
+
+/*Video Title*/
+.video-title {
+  
 }
 
 
@@ -110,10 +111,10 @@ body {
 
 video {
   position: relative;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
   outline: none;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 
@@ -126,7 +127,7 @@ video {
   display: flex;
   align-items: center;
   gap: .5rem;
-  padding: .25rem;
+  padding: .8rem;
   color: white;
   /*Keeps overtop of everything*/
   z-index: 100;
@@ -417,7 +418,7 @@ video {
   bottom: 0;
   /*Right value is 100% - progress position x 100%*/
   right: calc(100% - var(--progress-position) * 100%);
-  background-color: rgb(9, 10, 87);
+  background-color: #161c2c;
   /*Rounds Edges*/
   border-radius: .4rem;
 }
@@ -560,7 +561,7 @@ video {
   bottom: 0;
   /*Right value is 100% - progress position x 100%*/
   right: calc(100% - var(--volume-level) * 100%);
-  background-color: rgb(9, 10, 87);
+  background-color: #161c2c;
   /*Rounds Edges*/
   border-radius: .4rem;
 }
@@ -578,7 +579,7 @@ video {
   /*Sets to middle*/
   transform: translateY(-50%);
   /*Sets position on slider*/
-  left: calc(var(--volume-level) * 95%);
+  left: calc(var(--volume-level) * 96%);
   aspect-ratio: 1/1;
   z-index: 1;
 }
@@ -591,7 +592,7 @@ video {
   /*Height and Width are reversed*/
   width: 4.5rem;/*height*/
   height: 6px;/*width*/
-  bottom: 190%;
+  bottom: 140%;
   border-radius: 20rem;
   /*Turn 90deg vertically*/
   transform: scaleY(1) rotate(-90deg);
@@ -614,15 +615,16 @@ video {
   position: absolute;
   right: 2.5%;
   bottom: 100%;
-  background: rgba(28, 28, 28, 0.219);
+  background: rgba(28, 28, 28, 0.671);
   max-width: 126px;
-  max-height: 550%;
+  max-height: 400%;
   color: #fff;
   overflow-y: auto;
   z-index: 20;
   display: none;
-  border-radius: 5px;
   list-style-type:none;
+  transition: all .3s ease-in-out;
+  transition-property: margin, height, width;
 }
 
 .bottom-controls-container .settings.active {
@@ -645,16 +647,20 @@ video {
 }
 /*Settings List Menu*/
 .bottom-controls-container .settings > div ul{
+  margin: 0;
   height: inherit;
   width: inherit;
   font-size: 14px;
-  padding: 5px;
+  padding: 0;
   gap: .75rem;
-  list-style-type:none;
+  list-style-type: none;
   align-items: center;
 }
 .bottom-controls-container .settings > div ul li span {
   pointer-events: none;
+}
+.bottom-controls-container .settings > div label {
+  cursor: pointer;
 }
 
 .bottom-controls-container .captionsMenu .caption ul,
@@ -674,7 +680,6 @@ video {
   align-items: center;
   font-size: 14px;
   list-style-type: none;
-  top:50%;
 }
 
 /*Settings Hover Color*/
@@ -721,4 +726,51 @@ video {
 /*If video is NOT fullscreen, hide close fullscreen button*/
 .video-container:not(.fullscreen) .close {
     display: none;
+}
+
+@media screen and (max-width:1440px){
+  .video-player-page{
+    width: 100%;
+  }
+  .video-container{
+    width: 940px;
+    height: 529px;
+    min-height: 260px;
+  }
+  .video-header{
+    margin-left: 10%;
+    width: 80%
+  }
+  
+}
+
+@media screen and (max-width:1024px){
+  .video-player-page{
+    width:100%;
+    margin-top: 33px;
+    background-color: transparent!important;
+  }
+  .video-container{
+    height: 56.3vw;
+  }
+  .video-header{
+    margin-left: 0%;
+    width: 100%
+  }
+}
+
+@media screen and (max-width:680px){
+  .video-header{
+    margin-left: 0%;
+    width: 100%
+  }
+  
+}
+
+@media screen and (max-width:425px){
+  .video-header{
+    margin-left: 0%;
+    width: 100%
+  }
+  
 }

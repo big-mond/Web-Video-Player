@@ -346,7 +346,7 @@ function changePlaybackSpeed() {
 
 //Playback Speed in Settings
 playback.forEach((event) => {
-  event.addEventListener("input", () => {
+  event.addEventListener("click", () => {
     removeActiveClasses(playback);
     event.classList.add("active");
     speed = event.getAttribute("data-speed");
