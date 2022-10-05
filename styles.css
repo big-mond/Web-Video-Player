@@ -334,8 +334,8 @@ video {
 }
 
 /*Wide Playrate button*/
-.bottom-controls-container .controls button.wide {
-  width: 3rem;
+.bottom-controls-container  button.wide {
+  width: 2.5rem;
 }
 
 /*If video is in miniplayer mode, hide out button*/
@@ -645,6 +645,12 @@ video {
   white-space: nowrap;
   
 }
+
+.bottom-controls-container .settings > div ul li span {
+  /*List Menu Titles not clickable */
+  pointer-events: none;
+}
+
 /*Settings List Menu*/
 .bottom-controls-container .settings > div ul{
   margin: 0;
@@ -656,10 +662,10 @@ video {
   list-style-type: none;
   align-items: center;
 }
-.bottom-controls-container .settings > div ul li span {
-  pointer-events: none;
-}
-.bottom-controls-container .settings > div label {
+
+.bottom-controls-container .settings > div label, 
+.bottom-controls-container .settings > div input {
+  /*Indicates that label and input is clickable*/
   cursor: pointer;
 }
 
@@ -673,7 +679,6 @@ video {
 .bottom-controls-container .settings > div li {
   display: flex;
   position: relative;
-  cursor: pointer;
   text-align: left;
   padding: 12px;
   gap: .75rem;
