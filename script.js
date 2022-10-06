@@ -1,4 +1,5 @@
 const playPauseBtn = document.querySelector(".play-pause-btn")
+const controls = document.querySelector(".controls")
 const autoplay = document.querySelector(".autoplay")
 const replayBtn = document.querySelector(".replay-btn")
 const forwardBtn = document.querySelector(".forward-btn")
@@ -9,9 +10,9 @@ const previewImg = document.querySelector(".preview-img")
 const thumbnailImg = document.querySelector(".thumbnail-img")
 const captionsBtn = document.querySelector(".captions-btn")
 const captionsMenu = document.querySelector(".captionsMenu")
-const caption_labels = document.querySelector(".captionsMenu ul")
+const captionsLabel = document.querySelector(".captionsMenu ul")
 const speedBtn = document.querySelector(".speed-btn")
-const miniPlayerBtn = document.querySelector(".miniplayer-btn")
+const miniplayerBtn = document.querySelector(".miniplayer-btn")
 const settingsBtn = document.querySelector(".settings-btn")
 const settings = document.querySelector(".settings")
 const settingsMenu = document.querySelectorAll(
@@ -64,6 +65,24 @@ document.addEventListener("keydown", e => {
           break
     }
 })
+
+//  blob url
+let videoSources = document.querySelectorAll("source");
+for (let i = 0; i < videoSources.length; i++) {
+  let videoUrl = videoSources[i].src;
+  blobUrl(videoSources[i], videoUrl);
+}
+function blobUrl(video, videoUrl) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", videoUrl);
+  xhr.responseType = "arraybuffer";
+  xhr.onload = (e) => {
+    let blob = new Blob([xhr.response]);
+    let url = URL.createObjectURL(blob);
+    video.src = url;
+  };
+  xhr.send();
+}
 
 //Prevent Right-Click on video
 video.addEventListener("contextmenu", (e) => {
@@ -208,8 +227,12 @@ function formatDuration(time) {
 }
 
 
-//Volume toggle
+//Mute toggle
 muteBtn.addEventListener("click", toggleMute)
+
+function toggleMute() {
+  video.muted = !video.muted
+}
 
 //Set volume slider to corresponding value
 volumeSlider.addEventListener("input", e => {
@@ -217,10 +240,6 @@ volumeSlider.addEventListener("input", e => {
   video.muted = e.target.value === 0 
 })
 
-//Mute
-function toggleMute() {
-  video.muted = !video.muted
-}
 
 //Change volume button according to actual volume
 video.addEventListener("volumechange", () => {
@@ -260,7 +279,7 @@ function toggleCaptions() {
 
 
 //View Modes
-miniPlayerBtn.addEventListener("click", toggleMiniPlayerMode)
+miniplayerBtn.addEventListener("click", toggleMiniPlayerMode)
 theaterBtn.addEventListener("click", toggleTheaterMode)
 fullscreenBtn.addEventListener("click", toggleFullscreenMode)
 
@@ -322,7 +341,7 @@ settingsBtn.addEventListener("click", () => {
 
 // Open caption
 captionsBtn.addEventListener("click", () => {
- // captionsMenu.classList.toggle("active");
+  captionsMenu.classList.toggle("active");
   captionsBtn.classList.toggle("active");
   if (
     settingsBtn.classList.contains("active") ||
@@ -356,6 +375,20 @@ playback.forEach((event) => {
   })
 })
 
+
+const track = document.querySelectorAll("track")
+
+if (track.length != 0) {
+  captionsLabel.insertAdjacentHTML(
+    "afterbegin",
+    `<li data-track="OFF" class="active">Off</li>`
+  );
+  for (let i = 0; i < track.length; i++) {
+    trackLi = `<li data-track="${track[i].label}">${track[i].label}</li>`;
+    captionsLabel.insertAdjacentHTML("beforeend", trackLi);
+  }
+}
+
 const subtitles = document.querySelectorAll(".captionsMenu ul li");
 
 subtitles.forEach((event) => {
@@ -363,7 +396,7 @@ subtitles.forEach((event) => {
     removeActiveClasses(subtitles);
     event.classList.add("active");
     changeCaption(event);
-    caption_text.innerHTML = "";
+    captionText.innerHTML = "";
   });
 });
 
@@ -379,29 +412,29 @@ function changeCaption(label) {
 
 const settingsDivs = document.querySelectorAll(".settings > div")
 const settingsBack = document.querySelectorAll(".settings > div .arrow_back")
-const quality_ul = document.querySelector(".settings > [data-label='quality'] ul")
+const qualityUl = document.querySelector(".settings > [data-label='quality'] ul")
 const qualities = document.querySelectorAll("source[size]")
 
 qualities.forEach((event) => {
   let quality_html = `<li data-quality="${event.getAttribute(
     "size"
   )}">${event.getAttribute("size")}p</li>`;
-  quality_ul.insertAdjacentHTML("afterbegin", quality_html);
+  qualityUl.insertAdjacentHTML("afterbegin", quality_html);
 })
 
-const quality_li = document.querySelectorAll(".settings > [data-label='quality'] ul > li")
+const qualityLi = document.querySelectorAll(".settings > [data-label='quality'] ul > li")
 
-quality_li.forEach((event) => {
+qualityLi.forEach((event) => {
   event.addEventListener("click", (e) => {
     let quality = event.getAttribute("data-quality");
-    removeActiveClasses(quality_li);
+    removeActiveClasses(qualityLi);
     event.classList.add("active");
     qualities.forEach((event) => {
       if (event.getAttribute("size") == quality) {
-        let video_current_duration = video.currentTime;
-        let video_source = event.getAttribute("src");
-        video.src = video_source;
-        video.currentTime = video_current_duration;
+        let videoCurrentDuration = video.currentTime;
+        let videoSource = event.getAttribute("src");
+        video.src = videoSource;
+        video.currentTime = videoCurrentDuration;
         playVideo();
       }
     });
@@ -438,6 +471,26 @@ function removeActiveClasses(e) {
   e.forEach((event) => {
     event.classList.remove("active");
   });
+}
+
+let captionText = document.querySelector(".caption-text");
+for (let i = 0; i < captions.length; i++) {
+  captions[i].addEventListener("cuechange", () => {
+    if (captions[i].mode === "showing") {
+      if (captions[i].activeCues[0]) {
+        let span = `<span><mark>${captions[i].activeCues[0].text}</mark></span>`;
+        captionText.innerHTML = span;
+      } else {
+        captionText.innerHTML = "";
+      }
+    }
+  });
+}
+
+if (track.length == 0) {
+  captionsLabel.remove();
+  captionsMenu.remove();
+  captionsBtn.parentNode.remove();
 }
 
 

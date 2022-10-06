@@ -62,7 +62,7 @@ body {
 }
 
 
-/*Video Title*/
+/*Video Title
 .video-title {
   
 }
@@ -117,6 +117,27 @@ video {
   object-fit: fill;
 }
 
+
+.caption-text {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 90%;
+  max-width: 90%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  user-select: none;
+  transition: bottom 0.3s;
+}
+
+.caption-text.active {
+  bottom: 0%;
+}
+
+.caption-text mark {
+  background-color: #0000008f !important;
+  color: #fff;
+}
 
 /*Controls Containers*/
 
@@ -335,7 +356,7 @@ video {
 
 /*Wide Playrate button*/
 .bottom-controls-container  button.wide {
-  width: 2.5rem;
+  width: 3rem;
 }
 
 /*If video is in miniplayer mode, hide out button*/
@@ -660,7 +681,7 @@ video {
   padding: 0;
   gap: .75rem;
   list-style-type: none;
-  align-items: center;
+  align-items: center; 
 }
 
 .bottom-controls-container .settings > div label, 
@@ -669,13 +690,13 @@ video {
   cursor: pointer;
 }
 
-.bottom-controls-container .captionsMenu .caption ul,
+.bottom-controls-container .captionsMenu .subtitles ul,
 .bottom-controls-container .settings > div ul {
   position: relative;
 }
 
 /*Settings List Menu Items*/
-.bottom-controls-container .captionsMenu .caption ul li,
+.bottom-controls-container .captionsMenu .subtitles ul li,
 .bottom-controls-container .settings > div li {
   display: flex;
   position: relative;
@@ -688,12 +709,12 @@ video {
 }
 
 /*Settings Hover Color*/
-.bottom-controls-container .captionsMenu .caption ul li:hover,
+.bottom-controls-container .captionsMenu .subtitles ul li:hover,
 .bottom-controls-container .settings > div ul li:hover {
   background: rgba(28, 28, 28, 0.192);
 }
 
-.bottom-controls-container .captionsMenu .caption ul li.active::before,
+.bottom-controls-container .captionsMenu .subtitles ul li.active::before,
 .bottom-controls-container .settings > div ul li.active::before {
   content: "";
   font-family: "Material Icons";
