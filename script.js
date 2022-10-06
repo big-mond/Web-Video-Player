@@ -263,21 +263,6 @@ video.addEventListener("volumechange", () => {
 
 
 
-
-//Captions
-const captions = video.textTracks[0]
-video.textTracks[0].mode = "hidden"
-
-captionsBtn.addEventListener("click", toggleCaptions)
-
-//If it starts hidden, change to showing
-function toggleCaptions() {
-  const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions", isHidden)
-}
-
-
 //View Modes
 miniplayerBtn.addEventListener("click", toggleMiniPlayerMode)
 theaterBtn.addEventListener("click", toggleTheaterMode)
@@ -331,10 +316,10 @@ settingsBtn.addEventListener("click", () => {
   settingsBtn.classList.toggle("active");
   //If captions on turn them off
   if (
-    captionsBtn.classList.contains("active") ||
-    captionsMenu.classList.contains("active")
-  ) {
-    captionsMenu.classList.remove("active");
+    captionsMenu.classList.contains("active") ||
+    captionsBtn.classList.contains("active")
+    ) {
+    captionsMenu.classList.remove("active") ||
     captionsBtn.classList.remove("active");
   }
 })
@@ -375,24 +360,49 @@ playback.forEach((event) => {
   })
 })
 
+//Captions
+const captions = video.textTracks
+captions.mode = "hidden"
 
+captionsBtn.addEventListener("click", toggleCaptions)
+
+//If it starts hidden, change to showing
+function toggleCaptions() {
+  const isHidden = captions.mode === "hidden"
+  captions.mode = isHidden ? "showing" : "hidden"
+  videoContainer.classList.toggle("captions", isHidden)
+}
+
+
+
+//Video Tracks
 const track = document.querySelectorAll("track")
 
 if (track.length != 0) {
   captionsLabel.insertAdjacentHTML(
     "afterbegin",
-    `<li data-track="OFF" class="active">Off</li>`
+    `<li data-track="OFF" class="active">
+      <button>
+        <input type="radio" name="subtitles" value="off" checked>
+      </button>
+      <span>Off</span>
+    </li>`
   );
   for (let i = 0; i < track.length; i++) {
-    trackLi = `<li data-track="${track[i].label}">${track[i].label}</li>`;
-    captionsLabel.insertAdjacentHTML("beforeend", trackLi);
+    track_li = `<li data-track="${track[i].label}">
+                  <button>
+                    <input type="radio" name="subtitles">
+                  </button>
+                  <span>${track[i].label}</span>
+                </li>`;
+    captionsLabel.insertAdjacentHTML("beforeend", track_li);
   }
 }
 
+//Subtitles in Settings Menu
 const subtitles = document.querySelectorAll(".captionsMenu ul li");
-
 subtitles.forEach((event) => {
-  event.addEventListener("click", () => {
+  event.addEventListener("input", () => {
     removeActiveClasses(subtitles);
     event.classList.add("active");
     changeCaption(event);
@@ -410,22 +420,40 @@ function changeCaption(label) {
   }
 }
 
+
+//Video Track Text
+let captionText = document.querySelector(".caption-text");
+for (let i = 0; i < captions.length; i++) {
+  captions[i].addEventListener("cuechange", () => {
+    if (captions[i].mode === "showing") {
+      if (captions[i].activeCues[0]) {
+        let span = `<span><mark>${captions[i].activeCues[0].text}</mark></span>`;
+        captionText.innerHTML = span;
+      } else {
+        captionText.innerHTML = "";
+      }
+    }
+  });
+}
+
 const settingsDivs = document.querySelectorAll(".settings > div")
 const settingsBack = document.querySelectorAll(".settings > div .arrow_back")
 const qualityUl = document.querySelector(".settings > [data-label='quality'] ul")
 const qualities = document.querySelectorAll("source[size]")
 
 qualities.forEach((event) => {
-  let quality_html = `<li data-quality="${event.getAttribute(
-    "size"
-  )}">${event.getAttribute("size")}p</li>`;
+  let quality_html = `<li data-quality="${event.getAttribute("size")}">
+                        <button>
+                          <input type="radio" name="quality" value="">
+                        </button>
+                        <span>${event.getAttribute("size")}p</span></li>`;
   qualityUl.insertAdjacentHTML("afterbegin", quality_html);
 })
 
 const qualityLi = document.querySelectorAll(".settings > [data-label='quality'] ul > li")
 
 qualityLi.forEach((event) => {
-  event.addEventListener("click", (e) => {
+  event.addEventListener("input", (e) => {
     let quality = event.getAttribute("data-quality");
     removeActiveClasses(qualityLi);
     event.classList.add("active");
@@ -473,24 +501,11 @@ function removeActiveClasses(e) {
   });
 }
 
-let captionText = document.querySelector(".caption-text");
-for (let i = 0; i < captions.length; i++) {
-  captions[i].addEventListener("cuechange", () => {
-    if (captions[i].mode === "showing") {
-      if (captions[i].activeCues[0]) {
-        let span = `<span><mark>${captions[i].activeCues[0].text}</mark></span>`;
-        captionText.innerHTML = span;
-      } else {
-        captionText.innerHTML = "";
-      }
-    }
-  });
-}
 
 if (track.length == 0) {
-  captionsLabel.remove();
-  captionsMenu.remove();
-  captionsBtn.parentNode.remove();
+  captionsLabel.remove()
+  captionsMenu.remove()
+  captionsBtn.parentNode.remove()
 }
 
 

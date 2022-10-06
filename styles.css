@@ -116,12 +116,16 @@ video {
   outline: none;
   object-fit: fill;
 }
+/*Turn off default captions*/
+video::cue {
+  opacity: 0;
+}
 
 
 .caption-text {
   position: absolute;
   left: 50%;
-  bottom: 10%;
+  bottom: 5%;
   width: 90%;
   max-width: 90%;
   transform: translate(-50%, -50%);
