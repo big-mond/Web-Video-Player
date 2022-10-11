@@ -369,7 +369,7 @@ captionsBtn.addEventListener("click", toggleCaptions)
 function toggleCaptions() {
   //const isHidden = captions.mode === "hidden"
   //captions.mode = isHidden ? "showing" : "hidden"
-  //videoContainer.classList.toggle("captions", isHidden)
+  videoContainer.classList.toggle("captions")
 }
 
 

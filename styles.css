@@ -357,6 +357,10 @@ video::cue {
 .video-container:not(.captions) .on {
   display: none;
 }
+/*If captions off, hide caption text*/ 
+.video-container:not(.captions) .caption-text {
+  display: none;
+}
 
 /*Wide Playrate button*/
 .bottom-controls-container  button.wide {
