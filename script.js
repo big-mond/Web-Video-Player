@@ -309,24 +309,23 @@ document.addEventListener("fullscreenchange", () => {
 
 
 
-
+const subs = document.querySelectorAll(".subtitles ul li")
 //Settings Button and Menu
 settingsBtn.addEventListener("click", () => {
   settings.classList.toggle("active");
   settingsBtn.classList.toggle("active");
   //If captions on turn them off
   if (
-    captionsMenu.classList.contains("active") ||
+    subs.classList.contains("active") ||
     captionsBtn.classList.contains("active")
     ) {
-    captionsMenu.classList.remove("active") ||
+    subs.classList.remove("active") ||
     captionsBtn.classList.remove("active");
   }
 })
 
 // Open caption
 captionsBtn.addEventListener("click", () => {
-  captionsMenu.classList.toggle("active");
   captionsBtn.classList.toggle("active");
   if (
     settingsBtn.classList.contains("active") ||
@@ -351,8 +350,7 @@ function changePlaybackSpeed() {
 //Playback Speed in Settings
 playback.forEach((event) => {
   event.addEventListener("input", () => {
-    removeActiveClasses(playback);
-    event.classList.add("active");
+    event.classList.toggle("active");
     speed = event.getAttribute("data-speed");
     video.playbackRate = speed
     /*Play Speed Label*/
@@ -366,11 +364,12 @@ captions.mode = "hidden"
 
 captionsBtn.addEventListener("click", toggleCaptions)
 
+
 //If it starts hidden, change to showing
 function toggleCaptions() {
-  const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions", isHidden)
+  //const isHidden = captions.mode === "hidden"
+  //captions.mode = isHidden ? "showing" : "hidden"
+  //videoContainer.classList.toggle("captions", isHidden)
 }
 
 
@@ -381,7 +380,7 @@ const track = document.querySelectorAll("track")
 if (track.length != 0) {
   captionsLabel.insertAdjacentHTML(
     "afterbegin",
-    `<li data-track="OFF" class="active">
+    `<li data-track="OFF">
       <button>
         <input type="radio" name="subtitles" value="off" checked>
       </button>
@@ -403,14 +402,14 @@ if (track.length != 0) {
 const subtitles = document.querySelectorAll(".captionsMenu ul li");
 subtitles.forEach((event) => {
   event.addEventListener("input", () => {
-    removeActiveClasses(subtitles);
-    event.classList.add("active");
-    changeCaption(event);
+    event.classList.toggle("active");
+    changeCaptions(event);
     captionText.innerHTML = "";
+    videoContainer.classList.toggle("captions")
   });
 });
 
-function changeCaption(label) {
+function changeCaptions(label) {
   let captionsLabel = label.getAttribute("data-track");
   for (let i = 0; i < captions.length; i++) {
     captions[i].mode = "hidden";
