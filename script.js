@@ -66,7 +66,7 @@ document.addEventListener("keydown", e => {
     }
 })
 
-//  blob url
+//Video Blob Url
 let videoSources = document.querySelectorAll("source");
 for (let i = 0; i < videoSources.length; i++) {
   let videoUrl = videoSources[i].src;
@@ -243,24 +243,23 @@ volumeSlider.addEventListener("input", e => {
 
 //Change volume button according to actual volume
 video.addEventListener("volumechange", () => {
-  volumeSlider.value = video.volume
+  volumeSlider.value = video.volume / 1
   let volumeLevel
   if (video.muted || video.volume === 0) {
     volumeSlider.value = 0
     volumeLevel = "muted"
-  } else if (video.volume >= .6) {
+  } else if (video.volume >= 0.6) {
     volumeLevel = "high"
   } else {
     volumeLevel = "low"
   }
+  
   //Volume button will correlate with volume level
   videoContainer.dataset.volumeLevel = volumeLevel
-
+  
   //Inside volume bar will move with volume level
-  const value = volumeSlider.value
-  volumeSlider.style.setProperty("--volume-level", value)
+  volumeSlider.style.setProperty("--volume-level", volumeSlider.value)
 })
-
 
 
 //View Modes
@@ -324,17 +323,6 @@ settingsBtn.addEventListener("click", () => {
   }
 })
 
-// Open caption
-captionsBtn.addEventListener("click", () => {
-  captionsBtn.classList.toggle("active");
-  if (
-    settingsBtn.classList.contains("active") ||
-    settings.classList.contains("active")
-  ) {
-    settings.classList.remove("active");
-    settingsBtn.classList.remove("active");
-  }
-});
 
 //Playback Speed Button
 speedBtn.addEventListener("click", changePlaybackSpeed)
@@ -362,14 +350,23 @@ playback.forEach((event) => {
 const captions = video.textTracks
 captions.mode = "hidden"
 
-captionsBtn.addEventListener("click", toggleCaptions)
+captionsBtn.addEventListener("click", () => {
+  captionsBtn.classList.toggle("active");
+  if (
+    settingsBtn.classList.contains("active") ||
+    settings.classList.contains("active")
+  ) {
+    settings.classList.remove("active");
+    settingsBtn.classList.remove("active");
+  }
+})
 
 
 //If it starts hidden, change to showing
 function toggleCaptions() {
   //const isHidden = captions.mode === "hidden"
   //captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions")
+  //videoContainer.classList.toggle("captions")
 }
 
 
@@ -378,8 +375,7 @@ function toggleCaptions() {
 const track = document.querySelectorAll("track")
 
 if (track.length != 0) {
-  captionsLabel.insertAdjacentHTML(
-    "afterbegin",
+  captionsLabel.insertAdjacentHTML("afterbegin",
     `<li data-track="OFF">
       <button>
         <input type="radio" name="subtitles" value="off" checked>
@@ -395,17 +391,17 @@ if (track.length != 0) {
                   <span>${track[i].label}</span>
                 </li>`;
     captionsLabel.insertAdjacentHTML("beforeend", track_li);
-  }
+  } 
 }
 
 //Subtitles in Settings Menu
 const subtitles = document.querySelectorAll(".captionsMenu ul li");
 subtitles.forEach((event) => {
   event.addEventListener("input", () => {
-    event.classList.toggle("active");
+    //event.classList.toggle("active");
     changeCaptions(event);
     captionText.innerHTML = "";
-    videoContainer.classList.toggle("captions")
+    videoContainer.classList.add("captions")
   });
 });
 
@@ -501,11 +497,8 @@ function removeActiveClasses(e) {
 }
 
 
-if (track.length == 0) {
-  captionsLabel.remove()
-  captionsMenu.remove()
-  captionsBtn.parentNode.remove()
-}
+
+
 
 
 
