@@ -144,7 +144,6 @@ video {
 }
 
 /*Controls Containers*/
-
 .top-controls-container, 
 .bottom-controls-container {
   position: absolute;
@@ -562,6 +561,7 @@ video {
 .volume-slider {
     -webkit-appearance: none;
     position: absolute;
+    appearance: none;
     /*Hide by default*/
     width: 0rem;
     height: 0rem;
@@ -611,7 +611,7 @@ video {
   z-index: 1;
 }
 /*-moz- (Firefox)*/
-.slider::-moz-range-thumb {
+.volume-slider::-moz-range-thumb {
   position: absolute;
   /*Height and Width Reversed*/
   width: 6px; /*height*/
