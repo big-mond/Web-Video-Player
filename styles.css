@@ -117,9 +117,9 @@ video {
   object-fit: fill;
 }
 /*Turn off default captions*/
-/* video::cue {
+video::cue {
   opacity: 0;
-} */
+}
 
 
 .caption-text {
@@ -135,7 +135,10 @@ video {
 }
 
 .caption-text.active {
-  bottom: 0%;
+  bottom: 5%;
+}
+.caption-text.hidden {
+  opacity: 0;
 }
 
 .caption-text mark {
@@ -602,7 +605,7 @@ video {
   height: 12px; /*width*/
   border: none;
   outline: none; 
-  background: #ffffff;
+  background: #eeeae6;
   /*Sets to middle*/
   transform: translateY(-50%);
   /*Sets position on slider*/
@@ -618,7 +621,7 @@ video {
   height: 12px; /*width*/
   border: none;
   outline: none; 
-  background: #ffffff;
+  background: #eeeae6;
   /*Sets to middle*/
   transform: translateY(-50%);
   /*Sets position on slider*/

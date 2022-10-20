@@ -308,19 +308,23 @@ document.addEventListener("fullscreenchange", () => {
 
 
 
-const subs = document.querySelectorAll(".subtitles ul li")
 //Settings Button and Menu
 settingsBtn.addEventListener("click", () => {
   settings.classList.toggle("active");
   settingsBtn.classList.toggle("active");
   //If captions on turn them off
-  if (
-    subs.classList.contains("active") ||
-    captionsBtn.classList.contains("active")
-    ) {
-    subs.classList.remove("active") ||
-    captionsBtn.classList.remove("active");
-  }
+  // if (
+  //   captionText.classList.contains("active") ||
+  //   captionsBtn.classList.contains("active")
+  //   ) {
+  //   captionText.classList.remove("active")
+  //   captionsBtn.classList.remove("active");
+  // } else {
+  //   captionText.classList.add("active")
+  //   captionsBtn.classList.add("active");
+    
+    
+  // }
 })
 
 
@@ -350,15 +354,7 @@ playback.forEach((event) => {
 const captions = video.textTracks
 captions.mode = "hidden"
 
-captionsBtn.addEventListener("click", () => {
-  captionsBtn.classList.toggle("active");
-  if (
-    settingsBtn.classList.contains("active") ||
-    settings.classList.contains("active")
-  ) {
-    settings.classList.remove("active");
-    settingsBtn.classList.remove("active");
-  }
+captionsBtn.addEventListener("click", toggleCaptions, () => {
 })
 
 
@@ -366,7 +362,11 @@ captionsBtn.addEventListener("click", () => {
 function toggleCaptions() {
   //const isHidden = captions.mode === "hidden"
   //captions.mode = isHidden ? "showing" : "hidden"
-  //videoContainer.classList.toggle("captions")
+  if (captionText.classList.contains("active")){
+    captionText.classList.toggle("hidden")  
+    videoContainer.classList.toggle("captions")
+
+  }
 }
 
 
@@ -376,7 +376,7 @@ const track = document.querySelectorAll("track")
 
 if (track.length != 0) {
   captionsLabel.insertAdjacentHTML("afterbegin",
-    `<li data-track="OFF">
+    `<li data-track="OFF" class="off">
       <button>
         <input type="radio" name="subtitles" value="off" checked>
       </button>
@@ -386,7 +386,7 @@ if (track.length != 0) {
   for (let i = 0; i < track.length; i++) {
     track_li = `<li data-track="${track[i].label}">
                   <button>
-                    <input type="radio" name="subtitles">
+                    <input type="radio" name="subtitles" value="${track[i].label}">
                   </button>
                   <span>${track[i].label}</span>
                 </li>`;
@@ -398,10 +398,15 @@ if (track.length != 0) {
 const subtitles = document.querySelectorAll(".captionsMenu ul li");
 subtitles.forEach((event) => {
   event.addEventListener("input", () => {
-    //event.classList.toggle("active");
+      videoContainer.classList.add("captions")
+      captionText.classList.add("active")
+     
+    if (event.classList.contains("off")){
+      videoContainer.classList.remove("captions")
+      captionText.classList.remove("active")
+    } 
     changeCaptions(event);
     captionText.innerHTML = "";
-    videoContainer.classList.add("captions")
   });
 });
 
