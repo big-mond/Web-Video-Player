@@ -158,8 +158,9 @@ function handleTimelineUpdate(e) {
 
 
 
-//Play/Pause button toggle
+// Play/Pause button toggle
 playPauseBtn.addEventListener("click", togglePlay)
+// Toggle play on video
 video.addEventListener("click", togglePlay)
 
 //If video paused, play it. If playing, pause it.
@@ -312,19 +313,6 @@ document.addEventListener("fullscreenchange", () => {
 settingsBtn.addEventListener("click", () => {
   settings.classList.toggle("active");
   settingsBtn.classList.toggle("active");
-  //If captions on turn them off
-  // if (
-  //   captionText.classList.contains("active") ||
-  //   captionsBtn.classList.contains("active")
-  //   ) {
-  //   captionText.classList.remove("active")
-  //   captionsBtn.classList.remove("active");
-  // } else {
-  //   captionText.classList.add("active")
-  //   captionsBtn.classList.add("active");
-    
-    
-  // }
 })
 
 
@@ -360,6 +348,7 @@ captionsBtn.addEventListener("click", toggleCaptions, () => {
 
 //If it starts hidden, change to showing
 function toggleCaptions() {
+  //Default Captions
   //const isHidden = captions.mode === "hidden"
   //captions.mode = isHidden ? "showing" : "hidden"
   if (captionText.classList.contains("active")){
