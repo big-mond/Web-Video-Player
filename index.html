@@ -54,15 +54,17 @@
         
       <!--Top Button Controls-->
         <div class="top-controls-container">
-          <!--<button class="autoplay">
-            <span class="material-icons"></span>
-          </button>-->
+          <button class="autoplay-btn tooltip" aria-label="Autoplay">
+            <span class="tooltip-text">Autoplay</span>
+            <span class="material-icons-outlined auto-on">toggle_on</span>
+            <span class="material-icons-outlined auto-off">toggle_off</span>
+          </button>
         
           <!--Closed Caption/White-->
           <button class="captions-btn tooltip" aria-label="Captions (c)"> 
             <span class="tooltip-text">Captions (c)</span>
-            <span class="material-icons-outlined on">closed_caption</span>
-            <span class="material-icons-outlined off">closed_caption_disabled</span>
+            <span class="material-icons-outlined caps-on">closed_caption</span>
+            <span class="material-icons-outlined caps-off">closed_caption_disabled</span>
           </button>
           
         <!--Theater Button/WhiteOutline-->
@@ -86,7 +88,7 @@
           <!--Replay-->
             <button class="replay-btn tooltip" aria-label="Replay 10s (j)">
               <span class="tooltip-text">Replay 10s (j)</span>
-              <span class="material-icons">replay_10</span>
+              <span class="material-icons">fast_rewind</span>
               </button>
           
           <!--Play-->
@@ -94,12 +96,13 @@
               <span class="tooltip-text">Play (k)</span>
               <span class="material-icons play-icon">play_arrow</span>
               <span class="material-icons pause-icon">pause</span>
+              <span class="material-icons replay-icon">replay</span>
             </button>
             
           <!--Forward-->  
             <button class="forward-btn tooltip" aria-label="Forward 10s (l)">
               <span class="tooltip-text">Forward 10s (l)</span>
-              <span class="material-icons">forward_10</span>
+              <span class="material-icons">fast_forward</span>
             </button>
           
             <!--Timeline-->
@@ -131,7 +134,7 @@
           
             
           <!--Playback Speed-->
-            <button class="speed-btn wide tooltip" aria-label="Play Speed">
+            <button class="speed-btn tooltip" aria-label="Play Speed">
               <span class="tooltip-text">Play Speed</span>
               <span class="speed-btn-txt">1x</span>
             </button>

@@ -289,41 +289,6 @@ video::cue {
 }
 
 
-.top-button-controls .autoplay {
-  width: 30px;
-  height: 10px;
-  border-radius: 20px;
-  position: relative;
-  margin-right: 8px !important;
-  background: #b6b6b6;
-}
-
-.top-button-controls .autoplay::before {
-  content: "";
-  position: absolute;
-  left: -5px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 17px;
-  height: 17px;
-  line-height: 17px;
-  font-size: 14px;
-  background: #727272;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 50%;
-  font-family: "Material Icons";
-}
-
-.top-button-controls .autoplay.active::before {
-  content: "\e037";
-  left: 15px;
-  font-family: "Material Icons";
-}
-
-
 /*Theater and Fullscreen Mode*/
 .video-container.theater,
 .video-container.fullscreen {
@@ -339,6 +304,15 @@ video::cue {
   max-height: 100vh;
 }
 
+/* .video-container.paused .top-controls-container,
+.video-container.paused .bottom-controls-container{
+  transition: opacity .3s ease-in-out;
+  opacity: 0;
+}
+.video-container:hover.paused .top-controls-container,
+.video-container:hover.paused .bottom-controls-container{
+  opacity: 1;
+} */
 .video-container.fullscreen .top-controls-container,
 .video-container.fullscreen .bottom-controls-container{
   transition: opacity .3s ease-in-out;
@@ -349,20 +323,48 @@ video::cue {
   opacity: 1;
 }
 
+/*Play/Pause*/
+/*If video is paused, hide pause button*/
+.video-container.ended .pause-icon,
+.video-container.paused .pause-icon {
+  display: none;
+}
+
+/*If video is NOT paused, hide play button*/
+.video-container.ended .play-icon,
+.video-container:not(.paused) .play-icon {
+  display: none;
+}
+
+/*If video is NOT ended, hide replay button*/
+.video-container:not(.ended) .replay-icon {
+  display: none;
+}
+
+/*If autoplay on, hide inactive*/ 
+.video-container.autoplay .auto-off {
+  display: none;
+}
+
+/*If autoplay off, hide active*/ 
+.video-container:not(.autoplay) .auto-on {
+  display: none;
+}
 /*If captions on, hide off*/ 
-.video-container.captions .off {
+.video-container.captions .caps-off {
   display: none;
 }
 
 /*If captions off, hide on*/ 
-.video-container:not(.captions) .on {
+.video-container:not(.captions) .caps-on {
   display: none;
 }
 
 
-/*Wide Playrate button*/
-.bottom-controls-container  button.wide {
-  width: 3rem;
+/*Playrate button*/
+.bottom-controls-container  button.speed-btn {
+  width: inherit;
+  /* max-width: 100%; */
 }
 
 /*If video is in miniplayer mode, hide out button*/
@@ -386,16 +388,6 @@ video::cue {
 }
 
 
-/*Play/Pause*/
-/*If video is paused, hide pause button*/
-.video-container.paused .pause-icon {
-  display: none;
-}
-
-/*If video is NOT paused, hide play button*/
-.video-container:not(.paused) .play-icon {
-  display: none;
-}
 
 
 

@@ -1,6 +1,6 @@
 const playPauseBtn = document.querySelector(".play-pause-btn")
 const controls = document.querySelector(".controls")
-const autoplay = document.querySelector(".autoplay")
+const autoplay = document.querySelector(".autoplay-btn")
 const replayBtn = document.querySelector(".replay-btn")
 const forwardBtn = document.querySelector(".forward-btn")
 const muteBtn = document.querySelector(".mute-btn")
@@ -171,12 +171,33 @@ function togglePlay() {
 //Add paused class on paused and remove on play
 video.addEventListener("play", () => {
     videoContainer.classList.remove("paused")
+    videoContainer.classList.remove("ended")
 })
 
 video.addEventListener("pause", () => {
     videoContainer.classList.add("paused")
 })
 
+
+// Auto play
+autoplay.addEventListener("click", () => {
+  videoContainer.classList.toggle("autoplay");
+  if (videoContainer.classList.contains("autoplay")) {
+    autoplay.title = "Autoplay is on";
+  } else {
+    autoplay.title = "Autoplay is off";
+  }
+});
+
+video.addEventListener("ended", () => {
+  if (videoContainer.classList.contains("autoplay")) {
+    playVideo();
+  } else {
+    videoContainer.classList.add("ended")
+    // playPauseBtn.innerHTML = "";
+    // playPauseBtn.title = "Replay";
+  }
+});
 
 
 //Skip
@@ -308,29 +329,62 @@ document.addEventListener("fullscreenchange", () => {
 })
 
 
-
+let timer
 //Settings Button and Menu
 settingsBtn.addEventListener("click", () => {
+  clearTimeout(timer);
   settings.classList.toggle("active");
   settingsBtn.classList.toggle("active");
+  //Settings Timeout after 15sec
+  timer = setTimeout(() => {
+    if (settings.classList.contains("active")||
+        settingsBtn.classList.contains("active")
+        ) {
+        settings.classList.remove("active")
+        settingsBtn.classList.remove("active")
+    }
+  }, 30000);
+})
+
+settings.addEventListener("click", () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    if (settings.classList.contains("active")||
+        settingsBtn.classList.contains("active")
+        ) {
+        settings.classList.remove("active")
+        settingsBtn.classList.remove("active")
+    }
+  }, 30000);
+})
+settings.addEventListener("input", () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    if (settings.classList.contains("active")||
+        settingsBtn.classList.contains("active")
+        ) {
+        settings.classList.remove("active")
+        settingsBtn.classList.remove("active")
+    }
+  }, 10000);
 })
 
 
-//Playback Speed Button
-speedBtn.addEventListener("click", changePlaybackSpeed)
+// //Playback Speed Button
+// speedBtn.addEventListener("click", changePlaybackSpeed)
 
-function changePlaybackSpeed() {
-  let speed = video.playbackRate + 0.25
-  if (speed > 2) speed = 0.25
-  video.playbackRate = speed
-  /*Play Speed Label*/
-  speedBtn.textContent = `${speed}x`
-}
+// function changePlaybackSpeed() {
+//   let speed = video.playbackRate + 0.25
+//   if (speed > 2) speed = 0.25
+//   video.playbackRate = speed
+//   /*Play Speed Label*/
+//   speedBtn.textContent = `${speed}x`
+// }
 
 //Playback Speed in Settings
 playback.forEach((event) => {
   event.addEventListener("input", () => {
-    event.classList.toggle("active");
+    // event.classList.toggle("active");
     speed = event.getAttribute("data-speed");
     video.playbackRate = speed
     /*Play Speed Label*/
@@ -342,9 +396,7 @@ playback.forEach((event) => {
 const captions = video.textTracks
 captions.mode = "hidden"
 
-captionsBtn.addEventListener("click", toggleCaptions, () => {
-})
-
+captionsBtn.addEventListener("click", toggleCaptions, () => {})
 
 //If it starts hidden, change to showing
 function toggleCaptions() {
@@ -433,7 +485,7 @@ const qualities = document.querySelectorAll("source[size]")
 qualities.forEach((event) => {
   let quality_html = `<li data-quality="${event.getAttribute("size")}">
                         <button>
-                          <input type="radio" name="quality" value="">
+                          <input type="radio" name="quality" value="${event.getAttribute("size")}">
                         </button>
                         <span>${event.getAttribute("size")}p</span></li>`;
   qualityUl.insertAdjacentHTML("afterbegin", quality_html);
@@ -484,11 +536,15 @@ settingsMenu.forEach((event) => {
   });
 });
 
+
+
 function removeActiveClasses(e) {
   e.forEach((event) => {
     event.classList.remove("active");
   });
 }
+
+
 
 
 
