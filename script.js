@@ -335,7 +335,7 @@ settingsBtn.addEventListener("click", () => {
   clearTimeout(timer);
   settings.classList.toggle("active");
   settingsBtn.classList.toggle("active");
-  //Settings Timeout after 15sec
+  //Settings Timeout after 20sec
   timer = setTimeout(() => {
     if (settings.classList.contains("active")||
         settingsBtn.classList.contains("active")
@@ -343,11 +343,12 @@ settingsBtn.addEventListener("click", () => {
         settings.classList.remove("active")
         settingsBtn.classList.remove("active")
     }
-  }, 30000);
+  }, 20000);
 })
 
 settings.addEventListener("click", () => {
   clearTimeout(timer);
+  // Sets 20 second timer after clicking inside of menu
   timer = setTimeout(() => {
     if (settings.classList.contains("active")||
         settingsBtn.classList.contains("active")
@@ -355,10 +356,12 @@ settings.addEventListener("click", () => {
         settings.classList.remove("active")
         settingsBtn.classList.remove("active")
     }
-  }, 30000);
+  }, 20000);
 })
+
 settings.addEventListener("input", () => {
   clearTimeout(timer);
+  // Sets 10 second timer after making an input
   timer = setTimeout(() => {
     if (settings.classList.contains("active")||
         settingsBtn.classList.contains("active")
@@ -543,8 +546,6 @@ function removeActiveClasses(e) {
     event.classList.remove("active");
   });
 }
-
-
 
 
 
