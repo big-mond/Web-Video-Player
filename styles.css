@@ -51,7 +51,6 @@ body {
 /*Video Header*/
 .video-header {
   padding: 5px;
-  text-align: left;
   padding-left: 10px;
   font-size: 1.5rem;
   margin-top: -30px;
@@ -62,10 +61,10 @@ body {
 }
 
 
-/*Video Title
+/* Video Title
 .video-title {
-  
-}
+  text-align: center;
+} */
 
 
 /*Video Container*/
